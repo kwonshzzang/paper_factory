@@ -1,0 +1,238 @@
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+	var date = new Date();		
+    $("#div_dark").attr("src", "/pages/dark/index.html?v=" + date.getTime());
+	
+	DASHBOARD.INIT();
+});
+
+
+</script>
+
+
+
+
+<div class="page-container">
+	<iframe class="div-3d-viewer" id="div_dark"></iframe>
+	<div class="div-3d-controller">		
+		<div class="div-wrapper">
+			<div class="div-controller">
+				<div class="card card-quick">
+					<i class="icon-menu text-white py-2" title="Main"></i>
+					<button type="button" class="quick-menu-sensor btn-quick-menu btn btn-outline bg-primary text-white btn-icon mb-2" title="실시간 센서 정보" data-menutype="sensor"><i class="icon-feed"></i></button>
+					<button type="button" class="quick-menu-alarm btn-quick-menu btn btn-outline bg-primary text-white btn-icon mb-2" title="이상 정보" data-menutype="alarm"><i class="icon-warning"></i></button>
+					<button type="button" class="quick-menu-status btn-quick-menu btn btn-outline bg-primary text-white btn-icon mb-2" title="생산 공정 현황" data-menutype="status"><i class="icon-meter2"></i></button>
+					<button type="button" class="quick-menu-energy btn-quick-menu btn btn-outline bg-primary text-white btn-icon" title="에너지 사용량" data-menutype="energy"><i class="icon-power2"></i></button>
+				</div>
+			</div>
+			<div class="div-controller div-controller-top-left">
+				<div class="card card-dialog view-dialog-sensor" id="dialog_sensor">
+					<div class="card-header header-elements-inline">
+						<h6 class="card-title">센서 정보</h6>
+						<div class="header-elements">
+							<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-dialog-close" data-type="sensor">
+								<i class="icon-cross2"></i>
+							</button>
+						</div>
+					</div>					
+					<div class="card-body d-flex justify-content-between">
+						<div class="card card-sensor-info">
+							<div class="card-body">
+								<h6 class="font-weight-semibold mb-2 mt-1">SENSOR - 01</h6>
+								
+								<div class="pace-demo bg-transparent mb-2">
+									<div class="theme_tail theme_tail_circle" style="zoom: 1.5;">
+										<div class="pace_progress" data-progress-text="60%" data-progress="60"></div>
+										<div class="pace_activity"></div>
+									</div>
+								</div>
+								<div class="card-body border-top-0 p-0">
+									<div class="row">
+										<div class="col-4">
+											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀온도</div>
+											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor01_temp">0</h5>
+										</div>
+	
+										<div class="col-4">
+											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀량</div>
+											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor01_steam_total">0</h5>
+										</div>
+	
+										<div class="col-4">
+											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀압력</div>
+											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor01_steam_pressure">0</h5>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card card-sensor-info">
+							<div class="card-body">
+								<h6 class="font-weight-semibold mb-2 mt-1">SENSOR - 02</h6>
+								
+								<div class="pace-demo bg-transparent mb-2">
+									<div class="theme_tail theme_tail_circle" style="zoom: 1.5;">
+										<div class="pace_progress" data-progress-text="60%" data-progress="60"></div>
+										<div class="pace_activity"></div>
+									</div>
+								</div>
+								<div class="card-body border-top-0 p-0">
+									<div class="row">
+										<div class="col-4">
+											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀온도</div>
+											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor02_temp">0</h5>
+										</div>
+	
+										<div class="col-4">
+											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀량</div>
+											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor02_steam_total">0</h5>
+										</div>
+	
+										<div class="col-4">
+											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀압력</div>
+											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor02_steam_pressure">0</h5>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card card-sensor-info">
+							<div class="card-body">
+								<h6 class="font-weight-semibold mb-2 mt-1">SENSOR - 03</h6>
+								
+								<div class="pace-demo bg-transparent mb-2">
+									<div class="theme_tail theme_tail_circle" style="zoom: 1.5;">
+										<div class="pace_progress" data-progress-text="60%" data-progress="60"></div>
+										<div class="pace_activity"></div>
+									</div>
+								</div>
+								<div class="card-body border-top-0 p-0">
+									<div class="row">
+										<div class="col-4">
+											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀온도</div>
+											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor03_temp">0</h5>
+										</div>
+	
+										<div class="col-4">
+											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀량</div>
+											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor03_steam_total">0</h5>
+										</div>
+	
+										<div class="col-4">
+											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀압력</div>
+											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor03_steam_pressure">0</h5>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card card-dialog view-dialog-alarm" id="dialog_alarm">
+					<div class="card-header header-elements-inline">
+						<h6 class="card-title">이상 정보</h6>
+						<div class="header-elements">
+							<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-dialog-close" data-type="alarm">
+								<i class="icon-cross2"></i>
+							</button>
+						</div>
+					</div>					
+					<div class="card-body">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>발생 장비 ID</th>
+									<th>경고 내용</th>
+									<th>발생 일자</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>Sensor-01</td>
+									<td>과열</td>
+									<td>2022-01-01 11:11:00</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>Sensor-02</td>
+									<td>압력 경고</td>
+									<td>2022-01-01 11:11:00</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>Sensor-01</td>
+									<td>멈춤</td>
+									<td>2022-01-01 11:11:00</td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td>Sensor-03</td>
+									<td>신호 수신 불량</td>
+									<td>2022-01-01 11:11:00k</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="card card-dialog view-dialog-energy" id="dialog_energy">
+					<div class="card-header header-elements-inline">
+						<h6 class="card-title">실시간 에너지 사용량</h6>
+						<div class="header-elements">
+							<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-dialog-close" data-type="energy">
+								<i class="icon-cross2"></i>
+							</button>
+						</div>
+					</div>					
+					<div class="card-body">
+						<div class="chart chart-line-energy" id="chart_line_energy">
+						
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="div-controller div-controller-top-right">
+				<div class="card card-dialog view-dialog-status" id="dialog_status">
+					<div class="card-header header-elements-inline">
+						<h6 class="card-title">생산 공정 현황</h6>
+						<div class="header-elements">
+							<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-dialog-close" data-type="status">
+								<i class="icon-cross2"></i>
+							</button>
+						</div>
+					</div>					
+					<div class="text-center">
+						<div class="chart chart-gauge" id="chart_guage_steam">
+						
+						</div>
+					</div>
+					<div class="text-center">
+						<div class="chart chart-gauge" id="chart_guage_water">
+						
+						</div>
+					</div>
+					<div class="text-center">
+						<div class="chart chart-gauge" id="chart_guage_temp">
+						
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="div-controller div-controller-bottom-left">
+				
+			</div>
+			
+			<div class="div-controller div-controller-bottom-right">
+				
+			</div>
+		</div>
+		
+	</div>
+</div>

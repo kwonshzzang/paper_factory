@@ -1,0 +1,139 @@
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	ANALYSIS.INIT();
+});
+
+
+</script>
+
+
+<div class="page-container">
+	<div class="p-3">
+		<div class="row">
+			<div class="col-12">
+				<div class="card card-body">
+    				<div class="d-flex justify-content-end">
+    					<button type="button" class="btn btn btn-primary" id="btn_analysis_modal_alert">Show Alert</button>
+    					<button type="button" class="btn btn btn-danger ml-2" id="btn_analysis_modal_confirm">Show Confirm</button>
+    					<button type="button" class="btn btn btn-success ml-2" id="btn_analysis_modal_loading">Show Loading</button>
+    				</div>
+				</div>	
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">				
+				<div class="card bg-dark card-energy-vs">
+					<div class="card-header header-elements-inline">
+						<h5 class="card-title">에너지 소비량 비교</h5>
+						<div class="header-elements">
+							<button type="button" class="btn bg-blue" id="btn_save_vs_chart"><i class="icon-floppy-disk mr-2"></i> Save Chart</button>
+						</div>
+					</div>	
+					<div class="card-body">
+						<div class="chart chart-line" id="chart_analysis_energy_vs">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6">				
+				<div class="card bg-dark">
+					<div class="card-header header-elements-inline">
+						<h5 class="card-title">데이터 분석 이력</h5>
+					</div>	
+					<div class="card-body">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>분석 ID</th>
+									<th>분석 모델</th>
+									<th>사용 알고리즘</th>
+									<th>분석 날짜</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>ANL-04</td>
+									<td>MD-1234</td>
+									<td>DNN</td>
+									<td>2022-01-04</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>ANL-03</td>
+									<td>MD-1234</td>
+									<td>CNN</td>
+									<td>2022-01-03</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>ANL-02</td>
+									<td>MD-1234</td>
+									<td>GAN</td>
+									<td>2022-01-02</td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td>ANL-01</td>
+									<td>MD-1234</td>
+									<td>FCNN</td>
+									<td>2022-01-01</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="col-6">				
+				<div class="card bg-dark">
+					<div class="card-header header-elements-inline">
+						<h5 class="card-title">이상 진단 발생 이력</h5>
+					</div>	
+					<div class="card-body">						
+						<table class="table">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>발생 장비 ID</th>
+									<th>경고 내용</th>
+									<th>발생 일자</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>Sensor-01</td>
+									<td>과열</td>
+									<td>2022-01-01 11:11:00</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>Sensor-02</td>
+									<td>압력 경고</td>
+									<td>2022-01-01 11:11:00</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>Sensor-01</td>
+									<td>멈춤</td>
+									<td>2022-01-01 11:11:00</td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td>Sensor-03</td>
+									<td>신호 수신 불량</td>
+									<td>2022-01-01 11:11:00k</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
