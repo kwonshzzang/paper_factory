@@ -71,9 +71,9 @@
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/Dark.loader.js?v=" + date.getTime();
       var config = {
-    	        dataUrl: buildUrl + "/087d42882681b913895f0e8b59f549a0.data.unityweb",
-    	        frameworkUrl: buildUrl + "/1fdd144fcf538e4d0faf724edd6f8d91.js.unityweb",
-    	        codeUrl: buildUrl + "/3a4fa7830eb57669d9e8587376bd8d2e.wasm.unityweb",
+    	        dataUrl: buildUrl + "/c01b492cca8bec6d346c625f065115ad.data.unityweb",
+    	        frameworkUrl: buildUrl + "/9ec2f81b8c4130383383ddae6f822541.js.unityweb",
+    	        codeUrl: buildUrl + "/caa208c02563b5c5eb40c709c5aa7f32.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "FactoryModeling",
@@ -153,14 +153,30 @@
       }
       
       function RECEIVED_PARENT(msg){
+    	  console.log("RECEIVED PARENT FUNC", msg);
     	  
+    	  switch(msg.category){
+    	  case "camera":
+    	  case "sensor":
+    		  SendCamera(msg);
+    		  break;
+    	  case "menu":
+        	  SendMessage(msg);
+    		  break;
+    	  }
       }
       
       
       function SendMessage(msg){
     	  console.log("SEND MSG", msg);
     	  
-    	  uni_Instance.SendMessage("Canvas", "ReceivedMessage", msg);
+    	  uni_Instance.SendMessage("Canvas", "ReceivedMessage", JSON.stringify(msg));
+      }
+      
+      function SendCamera(msg){
+    	  console.log("SEND CAMERA", msg);
+    	  
+    	  uni_Instance.SendMessage("Canvas", "ReceivedCamera", JSON.stringify(msg));
       }
       
 

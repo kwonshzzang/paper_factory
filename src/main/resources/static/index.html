@@ -52,6 +52,7 @@
 	<!-- Local Javascript -->
 	<script type="text/javascript" src="assets/js/app.js"></script>
 	
+	<script type="text/javascript" src="assets/js/MN/DefinedData.js"></script>
 	<script type="text/javascript" src="assets/js/MN/RequestM.js"></script>
 	<script type="text/javascript" src="assets/js/MN/D3M.js"></script>
 	<script type="text/javascript" src="assets/js/MN/ChartM.js"></script>
@@ -71,7 +72,7 @@
 	    function SEND_CHILD(msg){
 
 			var iframe = $("#div_dark")[0];
-			iframe.contentWindow.postMessage(msg);
+			iframe.contentWindow.RECEIVED_PARENT(msg);
 	    }
 	
 		$(document).ready(function() {

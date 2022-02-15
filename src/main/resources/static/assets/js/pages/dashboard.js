@@ -26,11 +26,31 @@ DASHBOARD.INIT_EVENT = function(){
 		
 		$(".quick-menu-" + type).removeClass("active");
 		$(".view-dialog-" + type).hide();
+		
+		ChartM.resize();
+	});
+	
+	$(".btn-quick-camera").click(function(){
+		var type = $(this).data("menutype");
+		var msg = {
+			category : "camera",
+			type : "",
+			msg : ""
+		};
+				
+		msg.type = type;
+		
+		SEND_CHILD(msg);	
 	});
 	
 	$(".btn-quick-menu").click(function(){
 		var isactive = $(this).hasClass("active");
 		var type = $(this).data("menutype");
+		var msg = {
+			category : "menu",
+			type : "",
+			msg : ""
+		};
 		
 		if(isactive){			
 			$(".quick-menu-" + type).removeClass("active");
@@ -40,10 +60,44 @@ DASHBOARD.INIT_EVENT = function(){
 			$(".view-dialog-" + type).show();
 		}
 		
-		SEND_CHILD({
-			category : "menu",
-			msg : "change " + type
-		});
+		
+		ChartM.resize();
+		
+		msg.type = type;
+		
+		SEND_CHILD(msg);
+	});
+	
+	$("#btn_view_sensor").click(function(){
+		var isactive = $(this).hasClass("active");
+		var msg = {
+			category : "sensor",
+			type : "show",
+			msg : ""
+		};
+		
+		if(isactive){			
+			msg.type = "hide";
+		}else{
+			msg.type = "show";
+		}
+		
+		$(this).toggleClass("active");
+				
+		SEND_CHILD(msg);
+	});
+	
+	
+	
+	$(".btn-sensor-info-view").click(function(){
+		var id = $(this).data("sensorid");
+		var msg = {
+			category : "camera",
+			type : "sensor",
+			msg : id
+		};
+				
+		SEND_CHILD(msg);
 	});
 };
 
@@ -98,4 +152,12 @@ DASHBOARD.REALTIME_DATA_TEST = function(){
 	$("#device_sensor03_temp").text(UtilM.GET_RANDOM(100));
 	$("#device_sensor03_steam_total").text(UtilM.GET_RANDOM(100));
 	$("#device_sensor03_steam_pressure").text(UtilM.GET_RANDOM(100));
+	
+	$("#device_sensor04_temp").text(UtilM.GET_RANDOM(100));
+	$("#device_sensor04_steam_total").text(UtilM.GET_RANDOM(100));
+	$("#device_sensor04_steam_pressure").text(UtilM.GET_RANDOM(100));
+	
+	$("#device_sensor05_temp").text(UtilM.GET_RANDOM(100));
+	$("#device_sensor05_steam_total").text(UtilM.GET_RANDOM(100));
+	$("#device_sensor05_steam_pressure").text(UtilM.GET_RANDOM(100));
 };
