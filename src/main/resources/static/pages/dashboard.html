@@ -4,17 +4,16 @@
 
 $(document).ready(function(){
 	
+	
 	var date = new Date();		
     $("#div_dark").attr("src", "/pages/dark/index.html?v=" + date.getTime());
 	
+	
 	DASHBOARD.INIT();
+	
 });
 
-
 </script>
-
-
-
 
 <div class="page-container">
 	<iframe class="div-3d-viewer" id="div_dark"></iframe>
@@ -28,196 +27,150 @@ $(document).ready(function(){
 				</div>
 				<div class="card card-quick">
 					<i class="icon-menu text-success py-2" title="컨트롤"></i>
-					<button type="button" class="quick-menu-sensor btn-quick-menu btn btn-outline bg-primary text-white btn-icon mb-2" title="실시간 센서 정보" data-menutype="sensor"><i class="icon-feed"></i></button>
-					<button type="button" class="quick-menu-alarm btn-quick-menu btn btn-outline bg-primary text-white btn-icon mb-2" title="이상 정보" data-menutype="alarm"><i class="icon-warning"></i></button>
-					<button type="button" class="quick-menu-status btn-quick-menu btn btn-outline bg-primary text-white btn-icon mb-2" title="생산 공정 현황" data-menutype="status"><i class="icon-meter2"></i></button>
-					<button type="button" class="quick-menu-energy btn-quick-menu btn btn-outline bg-primary text-white btn-icon" title="에너지 사용량" data-menutype="energy"><i class="icon-power2"></i></button>
+					<button type="button" class="quick-menu-sensor btn-quick-menu btn btn-outline bg-primary text-white btn-icon mb-2" title="실시간 설비 정보" data-menutype="sensor"><i class="icon-feed"></i></button>
+					<button type="button" class="quick-menu-elec btn-quick-menu btn btn-outline bg-primary text-white btn-icon mb-2" title="전력 사용 현황" data-menutype="elec"><i class="icon-power2"></i></button>
+					<button type="button" class="quick-menu-steam btn-quick-menu btn btn-outline bg-primary text-white btn-icon" title="스팀 사용 현황" data-menutype="steam"><i class="icon-meter2"></i></button>
 				</div>
 			</div>
 			<div class="div-controller div-controller-top-left">
 				<div class="card card-dialog view-dialog-sensor" id="dialog_sensor">
 					<div class="card-header header-elements-inline">
 						<h6 class="card-title mr-2">센서 정보</h6>
-						<div class="header-elements mr-auto">
-							<button type="button" class="btn btn-outline bg-primary text-white btn-icon" id="btn_view_sensor"><i class="icon-file-eye"></i></button>
-						</div>
 						<div class="header-elements">
 							<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-dialog-close" data-type="sensor">
 								<i class="icon-cross2"></i>
 							</button>
 						</div>
 					</div>					
-					<div class="card-body d-flex justify-content-between">
-						<div class="card card-sensor-info">
-							<div class="card-body">
-								<div class="d-flex align-items-center">
-									<h6 class="font-weight-semibold mb-0 mr-auto">SENSOR - 01</h6>
-									<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-sensor-info-view" data-sensorid="0">
-										<i class="icon-camera"></i>
-									</button>
-								</div>
-								
-								<div class="pace-demo bg-transparent mb-2">
-									<div class="theme_tail theme_tail_circle" style="zoom: 1.5;">
-										<div class="pace_progress" data-progress-text="60%" data-progress="60"></div>
-										<div class="pace_activity"></div>
+					<div class="card-body">
+						<div class="d-flex">
+							<div class="card card-sensor-info">
+								<div class="card-body">
+									<div class="d-flex align-items-center" style="height: 36px;">
+										<h6 class="font-weight-bold text-uppercase mb-0">Pre Dryer</h6>
+									</div>
+									
+									<div class="card-body mt-3 p-0">
+										<div class="d-sm-flex flex-sm-wrap align-items-center mb-3">
+											<div class="font-weight-semibold">DCS STM Press(Gr.1) :</div>
+											<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_equip_pre_dryer_1">-</span></div>
+											<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-sensor-info-view ml-2" data-sensorid="pre_dryer_1">
+												<i class="icon-file-eye"></i>
+											</button>
+										</div>
+				
+										<div class="d-sm-flex flex-sm-wrap align-items-center mb-3">
+											<div class="font-weight-semibold">DCS STM Press(Gr.2A) :</div>
+											<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_equip_pre_dryer_2">-</span></div>
+											<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-sensor-info-view ml-2" data-sensorid="pre_dryer_2">
+												<i class="icon-file-eye"></i>
+											</button>
+										</div>
+				
+										<div class="d-sm-flex flex-sm-wrap align-items-center mb-3">
+											<div class="font-weight-semibold">DCS STM Press(Gr.2B) :</div>
+											<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_equip_pre_dryer_3">-</span></div>
+											<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-sensor-info-view ml-2" data-sensorid="pre_dryer_3">
+												<i class="icon-file-eye"></i>
+											</button>
+										</div>
+				
+										<div class="d-sm-flex flex-sm-wrap align-items-center ">
+											<div class="font-weight-semibold">DCS STM Press(Gr.3) :</div>
+											<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_equip_pre_dryer_4">-</span></div>
+											<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-sensor-info-view ml-2" data-sensorid="pre_dryer_4">
+												<i class="icon-file-eye"></i>
+											</button>
+										</div>
 									</div>
 								</div>
-								<div class="card-body border-top-0 p-0">
-									<div class="row">
-										<div class="col-4">
-											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀온도</div>
-											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor01_temp">0</h5>
+							</div>
+							<div class="card card-sensor-info ml-3">
+								<div class="card-body">
+									<div class="d-flex align-items-center" style="height: 36px;">
+										<h6 class="font-weight-bold text-uppercase mb-0">After Dryer</h6>
+									</div>
+									
+									<div class="card-body mt-3 p-0">
+										<div class="d-sm-flex flex-sm-wrap align-items-center mb-3">
+											<div class="font-weight-semibold">DCS STM Press(Gr.4) :</div>
+											<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_equip_after_dryer_1">-</span></div>
+											<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-sensor-info-view ml-2" data-sensorid="after_dryer_1">
+												<i class="icon-file-eye"></i>
+											</button>
 										</div>
-	
-										<div class="col-4">
-											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀량</div>
-											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor01_steam_total">0</h5>
+				
+										<div class="d-sm-flex flex-sm-wrap align-items-center mb-3">
+											<div class="font-weight-semibold">DCS STM Press(Gr.5B) :</div>
+											<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_equip_after_dryer_2">-</span></div>
+											<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-sensor-info-view ml-2" data-sensorid="after_dryer_2">
+												<i class="icon-file-eye"></i>
+											</button>
 										</div>
-	
-										<div class="col-4">
-											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀압력</div>
-											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor01_steam_pressure">0</h5>
+				
+										<div class="d-sm-flex flex-sm-wrap align-items-center ">
+											<div class="font-weight-semibold">DCS STM Press(Gr.5) :</div>
+											<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_equip_after_dryer_3">-</span></div>
+											<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-sensor-info-view ml-2" data-sensorid="after_dryer_3">
+												<i class="icon-file-eye"></i>
+											</button>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="card card-sensor-info">
-							<div class="card-body">
-								<div class="d-flex align-items-center">
-									<h6 class="font-weight-semibold mb-0 mr-auto">SENSOR - 02</h6>
-									<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-sensor-info-view" data-sensorid="1">
-										<i class="icon-camera"></i>
-									</button>
-								</div>
-								
-								<div class="pace-demo bg-transparent mb-2">
-									<div class="theme_tail theme_tail_circle" style="zoom: 1.5;">
-										<div class="pace_progress" data-progress-text="60%" data-progress="60"></div>
-										<div class="pace_activity"></div>
+						
+						<div class="d-flex">
+							<div class="card card-sensor-info">
+								<div class="card-body">
+									<div class="d-flex align-items-center" style="height: 36px;">
+										<h6 class="font-weight-bold text-uppercase mb-0">Size Press</h6>
+										<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-sensor-info-view ml-auto" data-sensorid="size_press">
+											<i class="icon-file-eye"></i>
+										</button>
 									</div>
-								</div>
-								<div class="card-body border-top-0 p-0">
-									<div class="row">
-										<div class="col-4">
-											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀온도</div>
-											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor02_temp">0</h5>
+									
+									<div class="card-body mt-3 p-0">
+										<div class="d-sm-flex flex-sm-wrap align-items-center mb-3">
+											<div class="font-weight-semibold">QCS Size 평량 :</div>
+											<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_equip_size_press_weight">-</span></div>
 										</div>
-	
-										<div class="col-4">
-											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀량</div>
-											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor02_steam_total">0</h5>
+				
+										<div class="d-sm-flex flex-sm-wrap align-items-center mb-3">
+											<div class="font-weight-semibold">QCS Size 수분량 :</div>
+											<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_equip_size_press_moisture">-</span></div>
 										</div>
-	
-										<div class="col-4">
-											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀압력</div>
-											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor02_steam_pressure">0</h5>
+				
+										<div class="d-sm-flex flex-sm-wrap align-items-center ">
+											<div class="font-weight-semibold">QCS STM Press(Gr.3) :</div>
+											<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_equip_size_press_dryer">-</span></div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="card card-sensor-info">
-							<div class="card-body">
-								<div class="d-flex align-items-center">
-									<h6 class="font-weight-semibold mb-0 mr-auto">SENSOR - 03</h6>
-									<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-sensor-info-view" data-sensorid="2">
-										<i class="icon-camera"></i>
-									</button>
-								</div>
-								
-								<div class="pace-demo bg-transparent mb-2">
-									<div class="theme_tail theme_tail_circle" style="zoom: 1.5;">
-										<div class="pace_progress" data-progress-text="60%" data-progress="60"></div>
-										<div class="pace_activity"></div>
+							<div class="card card-sensor-info ml-3">
+								<div class="card-body">
+									<div class="d-flex align-items-center" style="height: 36px;">
+										<h6 class="font-weight-bold text-uppercase mb-0">Reel Scanner</h6>
+										<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-sensor-info-view ml-auto" data-sensorid="reel">
+											<i class="icon-file-eye"></i>
+										</button>
 									</div>
-								</div>
-								<div class="card-body border-top-0 p-0">
-									<div class="row">
-										<div class="col-4">
-											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀온도</div>
-											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor03_temp">0</h5>
+									
+									<div class="card-body mt-3 p-0">
+										<div class="d-sm-flex flex-sm-wrap align-items-center mb-3">
+											<div class="font-weight-semibold">QCS Reel 평량 :</div>
+											<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_equip_size_reel_weight">-</span></div>
 										</div>
-	
-										<div class="col-4">
-											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀량</div>
-											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor03_steam_total">0</h5>
+				
+										<div class="d-sm-flex flex-sm-wrap align-items-center mb-3">
+											<div class="font-weight-semibold">QCS Reel 수분량 :</div>
+											<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_equip_size_reel_moisture">-</span></div>
 										</div>
-	
-										<div class="col-4">
-											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀압력</div>
-											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor03_steam_pressure">0</h5>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="card card-sensor-info">
-							<div class="card-body">
-								<div class="d-flex align-items-center">
-									<h6 class="font-weight-semibold mb-0 mr-auto">SENSOR - 04</h6>
-									<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-sensor-info-view" data-sensorid="3">
-										<i class="icon-camera"></i>
-									</button>
-								</div>
-								
-								<div class="pace-demo bg-transparent mb-2">
-									<div class="theme_tail theme_tail_circle" style="zoom: 1.5;">
-										<div class="pace_progress" data-progress-text="60%" data-progress="60"></div>
-										<div class="pace_activity"></div>
-									</div>
-								</div>
-								<div class="card-body border-top-0 p-0">
-									<div class="row">
-										<div class="col-4">
-											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀온도</div>
-											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor04_temp">0</h5>
-										</div>
-	
-										<div class="col-4">
-											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀량</div>
-											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor04_steam_total">0</h5>
-										</div>
-	
-										<div class="col-4">
-											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀압력</div>
-											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor04_steam_pressure">0</h5>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="card card-sensor-info">
-							<div class="card-body">
-								<div class="d-flex align-items-center">
-									<h6 class="font-weight-semibold mb-0 mr-auto">SENSOR - 05</h6>
-									<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-sensor-info-view" data-sensorid="4">
-										<i class="icon-camera"></i>
-									</button>
-								</div>
-								
-								<div class="pace-demo bg-transparent mb-2">
-									<div class="theme_tail theme_tail_circle" style="zoom: 1.5;">
-										<div class="pace_progress" data-progress-text="60%" data-progress="60"></div>
-										<div class="pace_activity"></div>
-									</div>
-								</div>
-								<div class="card-body border-top-0 p-0">
-									<div class="row">
-										<div class="col-4">
-											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀온도</div>
-											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor05_temp">0</h5>
-										</div>
-	
-										<div class="col-4">
-											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀량</div>
-											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor05_steam_total">0</h5>
-										</div>
-	
-										<div class="col-4">
-											<div class="text-uppercase font-size-xs text-muted text-nowrap">스팀압력</div>
-											<h5 class="font-weight-semibold line-height-1 mt-1 mb-0" id="device_sensor05_steam_pressure">0</h5>
+				
+										<div class="d-sm-flex flex-sm-wrap align-items-center ">
+											<div class="font-weight-semibold">QCS STM Press(Gr.5T) :</div>
+											<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_equip_size_reel_dryer">-</span></div>
 										</div>
 									</div>
 								</div>
@@ -235,7 +188,7 @@ $(document).ready(function(){
 						</div>
 					</div>					
 					<div class="card-body">
-						<table class="table">
+						<table class="table" id="tbl_dashboard_alarm">
 							<thead>
 								<tr>
 									<th>#</th>
@@ -247,25 +200,25 @@ $(document).ready(function(){
 							<tbody>
 								<tr>
 									<td>1</td>
-									<td>Sensor-01</td>
+									<td>320PIC7509</td>
 									<td>과열</td>
 									<td>2022-01-01 11:11:00</td>
 								</tr>
 								<tr>
 									<td>2</td>
-									<td>Sensor-02</td>
+									<td>320PIC7511</td>
 									<td>압력 경고</td>
 									<td>2022-01-01 11:11:00</td>
 								</tr>
 								<tr>
 									<td>3</td>
-									<td>Sensor-01</td>
+									<td>320PIC7514</td>
 									<td>멈춤</td>
 									<td>2022-01-01 11:11:00</td>
 								</tr>
 								<tr>
 									<td>4</td>
-									<td>Sensor-03</td>
+									<td>320PIC7513</td>
 									<td>신호 수신 불량</td>
 									<td>2022-01-01 11:11:00k</td>
 								</tr>
@@ -291,6 +244,86 @@ $(document).ready(function(){
 			</div>
 			
 			<div class="div-controller div-controller-top-right">
+				<div class="card card-dialog view-dialog-elec" id="dialog_elec">
+					<div class="card-header header-elements-inline">
+						<h6 class="card-title">전력 사용 현황</h6>
+						<div class="header-elements">
+							<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-dialog-close" data-type="elec">
+								<i class="icon-cross2"></i>
+							</button>
+						</div>
+					</div>					
+					<div class="mx-3">						
+						<div class="card card-elec">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<h6 class="font-weight-semibold mb-0 mr-auto">Drive 5-1</h6>
+									<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-sensor-info-view" data-sensorid="elec_51">
+										<i class="icon-file-eye"></i>
+									</button>
+								</div>
+								<div class="card-body mt-3 p-0">
+									<div class="d-sm-flex flex-sm-wrap mb-3">
+										<div class="font-weight-semibold">순시전력 :</div>
+										<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_elec_kw_1">-</span><span class="ml-2">(KW)</span></div>
+									</div>
+			
+									<div class="d-sm-flex flex-sm-wrap mb-3">
+										<div class="font-weight-semibold">전력 적산값 :</div>
+										<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_elec_kwh_1">-</span><span class="ml-2">(KWH)</span></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>				
+					<div class="mx-3">						
+						<div class="card card-elec">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<h6 class="font-weight-semibold mb-0 mr-auto">Drive 5-2</h6>
+									<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-sensor-info-view" data-sensorid="elec_52">
+										<i class="icon-file-eye"></i>
+									</button>
+								</div>
+								<div class="card-body mt-3 p-0">
+									<div class="d-sm-flex flex-sm-wrap mb-3">
+										<div class="font-weight-semibold">순시전력 :</div>
+										<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_elec_kw_2">-</span><span class="ml-2">(KW)</span></div>
+									</div>
+			
+									<div class="d-sm-flex flex-sm-wrap mb-3">
+										<div class="font-weight-semibold">전력 적산값 :</div>
+										<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_elec_kwh_2">-</span><span class="ml-2">(KWH)</span></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>				
+					<div class="mx-3">						
+						<div class="card card-elec">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<h6 class="font-weight-semibold mb-0 mr-auto">Drive 5-3</h6>
+									<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-sensor-info-view" data-sensorid="elec_53">
+										<i class="icon-file-eye"></i>
+									</button>
+								</div>
+								<div class="card-body mt-3 p-0">
+									<div class="d-sm-flex flex-sm-wrap mb-3">
+										<div class="font-weight-semibold">순시전력 :</div>
+										<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_elec_kw_3">-</span><span class="ml-2">(KW)</span></div>
+									</div>
+			
+									<div class="d-sm-flex flex-sm-wrap mb-3">
+										<div class="font-weight-semibold">전력 적산값 :</div>
+										<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_elec_kwh_3">-</span><span class="ml-2">(KWH)</span></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 
 				<div class="card card-dialog view-dialog-status" id="dialog_status">
 					<div class="card-header header-elements-inline">
 						<h6 class="card-title">생산 공정 현황</h6>
@@ -316,10 +349,44 @@ $(document).ready(function(){
 						</div>
 					</div>
 				</div>
+				 -->
 			</div>
 			
 			<div class="div-controller div-controller-bottom-left">
-				
+				<div class="card card-dialog view-dialog-steam" style="width: 400px;">
+					<div class="card-header header-elements-inline">
+						<h6 class="card-title">스팀 사용 현황</h6>
+						<div class="header-elements ml-2 mr-auto">
+							<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-sensor-info-view" data-sensorid="steam"><i class="icon-file-eye"></i></button>
+						</div>
+						<div class="header-elements">
+							<button type="button" class="btn btn-outline bg-primary text-white btn-icon btn-dialog-close" data-type="steam">
+								<i class="icon-cross2"></i>
+							</button>
+						</div>
+					</div>
+					<div class="card-body mt-3">
+						<div class="d-sm-flex flex-sm-wrap mb-3">
+							<div class="font-weight-semibold">순시 유량 :</div>
+							<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_steam_val">-</span><span class="ml-2">(KG/H)</span></div>
+						</div>
+
+						<div class="d-sm-flex flex-sm-wrap mb-3">
+							<div class="font-weight-semibold">적산 유량 :</div>
+							<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_steam_val_sum">-</span><span class="ml-2">(TON)</span></div>
+						</div>
+
+						<div class="d-sm-flex flex-sm-wrap mb-3">
+							<div class="font-weight-semibold">압력 :</div>
+							<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_steam_press">-</span><span class="ml-2">(kgf/cm2)</span></div>
+						</div>
+
+						<div class="d-sm-flex flex-sm-wrap">
+							<div class="font-weight-semibold">온도 :</div>
+							<div class="ml-sm-auto mt-2 mt-sm-0"><span id="txt_sensor_steam_temp">-</span><span class="ml-2">(℃)</span></div>
+						</div>
+					</div>
+				</div>
 			</div>
 			
 			<div class="div-controller div-controller-bottom-right">

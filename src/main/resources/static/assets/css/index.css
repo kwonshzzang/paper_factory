@@ -15,20 +15,20 @@ body{
 }
 
 
-body::-webkit-scrollbar {
+body::-webkit-scrollbar,
+.page::-webkit-scrollbar {
 	width: 10px;
 }
 
-body::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb,
+.page::-webkit-scrollbar-thumb {
 	background-color: #2196f3;
-    border-radius: 2px;
     background-clip: padding-box;
-    border: 2px solid transparent;
 }
 
-body::-webkit-scrollbar-track {
-	background-color: #d9d9d9;
-    border-radius: 10px;
+body::-webkit-scrollbar-track,
+.page::-webkit-scrollbar-track {
+	background-color: #d9d9d94d;
 }
 
 
@@ -39,6 +39,10 @@ body::-webkit-scrollbar-track {
 .navbar-dark .active>.navbar-nav-link, .navbar-dark .navbar-nav-link.active, .navbar-dark .navbar-nav-link.show, .navbar-dark .show>.navbar-nav-link {
     color: #fff;
     background-color: #2196f38a;
+}
+
+.page{
+	overflow: auto;
 }
 
 .page,
@@ -84,8 +88,24 @@ body::-webkit-scrollbar-track {
 
 .menu-item{
 	font-size: 16px;
+	margin-right: 30px;
 }
 
+.btn-100{
+	width: 100px;
+}
+
+ .modal-xlg{
+ 	max-width: 1600px;
+ }
+ 
+ .breadcrumb-item.active {
+    color: #03a9f4;
+}
+
+select option {
+  background: rgba(0, 0, 0, 0.8);
+}
 
 /* ------------------------------------------------------------------------------
  *
@@ -95,6 +115,7 @@ body::-webkit-scrollbar-track {
 
 .div-controller{
 	position: absolute;
+	font-size: 16px;
 }
 
 .div-controller-top-left{
@@ -130,6 +151,11 @@ body::-webkit-scrollbar-track {
 	pointer-events:auto;
  }
  
+ .card.card-elec{
+	background-color: #00bcd475!important;
+    width: 300px;
+ }
+ 
  .card.card-dialog{
  	background: #000000a1;
     color: white;
@@ -153,7 +179,7 @@ body::-webkit-scrollbar-track {
  	background-color: #353f53;
     border: 1px solid #dddddd8c;
     text-align: center;
-    margin-right: 20px;
+    min-width: 360px;
  }
  
 

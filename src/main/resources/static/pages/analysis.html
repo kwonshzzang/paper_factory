@@ -11,7 +11,7 @@ $(document).ready(function(){
 
 <div class="page-container">
 	<div class="p-3">
-		<div class="row">
+		<div class="row d-none">
 			<div class="col-12">
 				<div class="card card-body">
     				<div class="d-flex justify-content-end">
@@ -45,7 +45,7 @@ $(document).ready(function(){
 						<h5 class="card-title">데이터 분석 이력</h5>
 					</div>	
 					<div class="card-body">
-						<table class="table">
+						<table class="table" id="tbl_analysis_history">
 							<thead>
 								<tr>
 									<th>#</th>
@@ -61,28 +61,35 @@ $(document).ready(function(){
 									<td>ANL-04</td>
 									<td>MD-1234</td>
 									<td>DNN</td>
-									<td>2022-01-04</td>
+									<td>2022-03-04</td>
 								</tr>
 								<tr>
 									<td>2</td>
 									<td>ANL-03</td>
 									<td>MD-1234</td>
 									<td>CNN</td>
-									<td>2022-01-03</td>
+									<td>2022-03-03</td>
 								</tr>
 								<tr>
 									<td>3</td>
 									<td>ANL-02</td>
 									<td>MD-1234</td>
 									<td>GAN</td>
-									<td>2022-01-02</td>
+									<td>2022-03-02</td>
 								</tr>
 								<tr>
 									<td>4</td>
-									<td>ANL-01</td>
+									<td>DN-01</td>
 									<td>MD-1234</td>
 									<td>FCNN</td>
-									<td>2022-01-01</td>
+									<td>2022-03-01</td>
+								</tr>
+								<tr>
+									<td>5</td>
+									<td>GAN-12</td>
+									<td>TM-3245</td>
+									<td>GAN-AE</td>
+									<td>2022-03-01</td>
 								</tr>
 							</tbody>
 						</table>
@@ -92,43 +99,21 @@ $(document).ready(function(){
 			<div class="col-6">				
 				<div class="card bg-dark">
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title">이상 진단 발생 이력</h5>
+						<h5 class="card-title">수집된 센서 이력</h5>
 					</div>	
 					<div class="card-body">						
-						<table class="table">
+						<table class="table" id="tbl_analysis_status_history">
 							<thead>
 								<tr>
-									<th>#</th>
-									<th>발생 장비 ID</th>
-									<th>경고 내용</th>
-									<th>발생 일자</th>
+									<th>센서 ID</th>
+									<th>수집 날짜</th>
+									<th>평량(gm)</th>
+									<th>수분량(%)</th>
+									<th>스팀압력(Pa)</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<td>1</td>
-									<td>Sensor-01</td>
-									<td>과열</td>
-									<td>2022-01-01 11:11:00</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>Sensor-02</td>
-									<td>압력 경고</td>
-									<td>2022-01-01 11:11:00</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>Sensor-01</td>
-									<td>멈춤</td>
-									<td>2022-01-01 11:11:00</td>
-								</tr>
-								<tr>
-									<td>4</td>
-									<td>Sensor-03</td>
-									<td>신호 수신 불량</td>
-									<td>2022-01-01 11:11:00k</td>
-								</tr>
+							<tbody id="tbl_analysis_status_history_body">
+								
 							</tbody>
 						</table>
 					</div>

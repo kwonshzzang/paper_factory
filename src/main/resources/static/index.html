@@ -61,7 +61,10 @@
 		
 	
 	<script type="text/javascript" src="assets/js/pages/dashboard.js"></script>	
-	<script type="text/javascript" src="assets/js/pages/analysis.js"></script>	
+	<script type="text/javascript" src="assets/js/pages/energy.js"></script>	
+	<script type="text/javascript" src="assets/js/pages/system.js"></script>	
+	<script type="text/javascript" src="assets/js/pages/analysis.js"></script>
+	<script type="text/javascript" src="assets/js/pages/history.js"></script>		
 	<script type="text/javascript" src="assets/js/pages/settings.js"></script>	
 	
 	<script type="text/javascript" src="assets/js/MN/MainM.js"></script>	
@@ -96,7 +99,10 @@
 				var msg = e.data;
 				
 				if(msg.category == "loading"){
+					MainM.isready = true;
 					ModalM.SHOW_LOADING("hide");
+					
+					DASHBOARD.REQ.LOAD_REALTIME_DATA();
 				}
 			});
 		});
@@ -111,7 +117,7 @@
 		<div class="narvar-brand d-flex mr-5">
 			<a href="index.html" class="d-flex justify-content-center" style="color: white;">
 				<img src="/assets/images/etri_ci.png" alt="ETRI 워드마크" class="align-self-center" style="height: 40px;margin-right: 20px;">
-				<h4 class="align-self-center navbar-title mb-0">공정/설비 가사화 모니터링 시스템</h4>
+				<h4 class="align-self-center navbar-title mb-0">공정/설비 가시화 모니터링 시스템</h4>
 			</a>
 		</div>
 		<!-- /navbar brand -->	
@@ -122,9 +128,24 @@
 					<i class="icon-versions mr-2"></i> 공정/설비 대시보드
 				</a>
 			</li>
-			<li class="nav-item nav-analysis">
+			<li class="nav-item nav-energy">
+				<a href="#" class="navbar-nav-link menu-item" data-menu="energy">
+					<i class="icon-power-cord mr-2"></i> 에너지 운영
+				</a>
+			</li>
+			<li class="nav-item nav-system d-none">
+				<a href="#" class="navbar-nav-link menu-item" data-menu="system">
+					<i class="icon-hammer-wrench mr-2"></i> 설비 운영
+				</a>
+			</li>
+			<li class="nav-item nav-analysis d-none">
 				<a href="#" class="navbar-nav-link menu-item" data-menu="analysis">
 					<i class="icon-brain mr-2"></i> 데이터 분석 서비스
+				</a>
+			</li>
+			<li class="nav-item nav-history">
+				<a href="#" class="navbar-nav-link menu-item" data-menu="history">
+					<i class="icon-list mr-2"></i> 히스토리
 				</a>
 			</li>
 			<li class="nav-item nav-settings">
@@ -140,7 +161,19 @@
 		
 	</div>
 	
+	<div class="page" id="page_energy">
+	
+	</div>
+	
+	<div class="page" id="page_system">
+	
+	</div>
+	
 	<div class="page" id="page_analysis">
+	
+	</div>
+	
+	<div class="page" id="page_history">
 	
 	</div>
 	

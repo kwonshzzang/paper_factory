@@ -226,7 +226,7 @@ ChartM.UPDATE_GAUGE_TEMP = function(val){
 		      {
 		        data: [
 		          {
-		            value: +(Math.random() * 100).toFixed(2),
+		            value: val,
 				  	name : "온도"
 		          }
 		        ]
@@ -316,7 +316,7 @@ ChartM.UPDATE_GAUGE_STEAM = function(val){
 		      {
 		        data: [
 		          {
-		            value: +(Math.random() * 100).toFixed(2),
+		            value: val,
 				  	name : "스팀 압력"
 		          }
 		        ]
@@ -408,7 +408,7 @@ ChartM.UPDATE_GAUGE_WATER = function(val){
 		      {
 		        data: [
 		          {
-		            value: +(Math.random() * 100).toFixed(2),
+		            value: val,
 				  	name : "수분 함량"
 		          }
 		        ]
@@ -506,9 +506,9 @@ ChartM.CREATE_REALTIME_LINE_ENERGY = function(id, item){
 	
 };
 
-ChartM.UPDATE_REALTIME_LINE_ENERGY = function(){
+ChartM.UPDATE_REALTIME_LINE_ENERGY = function(val){
 	
-	ChartM.chartlist.energy.datalist = ChartM.SET_DATA(ChartM.chartlist.energy.datalist, +(Math.random() * 100).toFixed(2));
+	ChartM.chartlist.energy.datalist = ChartM.SET_DATA(ChartM.chartlist.energy.datalist, val);
 	
     ChartM.chartlist.energy.chart.setOption({
         series: [{

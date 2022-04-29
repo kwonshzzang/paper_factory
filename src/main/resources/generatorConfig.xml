@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <classPathEntry location="C:/Users/user/.m2/repository/mysql/mysql-connector-java/8.0.28/mysql-connector-java-8.0.28-sources.jar"/>
+  <context id="context1" targetRuntime="MyBatis3Simple">
+    <jdbcConnection connectionURL="jdbc:mysql://localhost:3306/paper_dt" driverClass="com.mysql.cj.jdbc.Driver" password="1234" userId="root" />
+    <javaModelGenerator targetPackage="kr.re.etri.paper.domain" targetProject="PaperFactory/src/main/java" />
+    <sqlMapGenerator targetPackage="mapper" targetProject="PaperFactory/src/main/resources" />
+    <javaClientGenerator targetPackage="kr.re.etri.paper.mapper" targetProject="PaperFactory/src/main/java" type="XMLMAPPER" />
+    <table tableName="product_plan">
+    </table>
+  </context>
+</generatorConfiguration>

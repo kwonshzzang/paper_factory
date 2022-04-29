@@ -1,0 +1,659 @@
+<style>
+.search-field h6{
+	min-width: 100px;
+	text-align: right;
+	margin-right: 20px;
+	margin-bottom: 0px;
+}
+
+.search-field select{
+	min-width: 140px;
+}
+
+.history-chart{
+	min-height: 500px;
+}
+
+.btn-group .btn.active{
+	background: #2196f3;
+}
+
+</style>
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	App.initCore();
+	
+	HISTORY.INIT();
+});
+
+
+</script>
+
+
+<div class="page-container" id="page_history">
+	<div class="page-content">
+		
+		<!-- Main sidebar -->
+		<div class="sidebar sidebar-dark sidebar-main sidebar-expand-md">
+			<div class="sidebar-content">
+				<div class="card card-sidebar-mobile">
+					<ul class="nav nav-sidebar" data-nav-type="accordion">
+						<li class="nav-item nav-item-submenu nav-item-open">
+							<a href="#" class="nav-link"><i class="icon-power-cord"></i> <span>에너지</span></a>
+
+							<ul class="nav nav-group-sub " data-submenu-title="에너지" style="display: block">
+								<li class="nav-item"><a href="#" class="nav-quick-menu nav-link active" data-type="steam">스팀</a></li>
+								<li class="nav-item"><a href="#" class="nav-quick-menu nav-link" data-type="elec">전력</a></li>
+							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-versions"></i> <span>공정</span></a>
+
+							<ul class="nav nav-group-sub" data-submenu-title="공정">
+								<li class="nav-item"><a href="#" class="nav-quick-menu nav-link " data-type="system">설비 & 태그</a></li>
+								<li class="nav-item"><a href="#" class="nav-quick-menu nav-link" data-type="papertype">지종</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+			<div class="px-3 py-2">
+				<div class="inner-page" data-type="steam">
+					<div class="breadcrumb-line breadcrumb-line-light bg-dark breadcrumb-line-component header-elements-md-inline mb-2">
+						<div class="d-flex">
+							<div class="breadcrumb">
+								<span class="breadcrumb-item"><i class="icon-list mr-2"></i> 히스토리</span>
+								<span class="breadcrumb-item">에너지</span>
+								<span class="breadcrumb-item active">스팀</span>
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-body d-flex">
+							<div class="d-flex align-items-center search-field ml-2">
+								<h6 class="">라인</h6>
+								<select class="form-control" id="sel_history_steam_line" disabled="disabled">
+									<option>PM1</option>
+									<option>PM2</option>
+									<option selected="selected">PM3</option>
+								</select>
+							</div>
+							<div class="d-flex align-items-center search-field">
+								<h6 class="">공정</h6>
+								<select class="form-control" id="sel_history_steam_process" disabled="disabled">
+									<option>조정</option>
+									<option selected="selected">초지</option>
+									<option>가공</option>
+									<option>완정</option>
+								</select>
+							</div>
+							<div class="d-flex align-items-center search-field ml-2">
+								<h6 class="">주기</h6>
+								<select class="form-control txt-period" id="sel_history_steam_period_type">
+									<option value="day">일</option>
+									<option value="week">주</option>
+									<option value="month">월</option>
+									<option value="year">년</option>
+								</select>
+							</div>
+							<div class="d-flex align-items-center search-field ml-2">
+								<h6 class="">기간</h6>
+								<input class="form-control txt-period-start" type="date" id="sel_history_steam_period_start">
+								<span class="mx-3">~</span>								
+								<input class="form-control txt-period-end" type="date" id="sel_history_steam_period_end">
+							</div>
+							<div class="ml-4">
+								<button type="button" class="btn btn btn-primary btn-100 btn-history-search" data-type="steam">정보 조회</button>		    					
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<div class="card bg-dark">
+								<div class="card-body">
+									<div class="d-flex justify-content-end mb-3">
+				    					<button type="button" class="btn btn-outline-primary btn-history-download-excel" data-category="steam" data-type="val"><i class="icon-file-excel mr-2"></i> Excel</button>
+				    					<button type="button" class="btn btn-outline-success btn-history-download-csv ml-2" data-category="steam" data-type="val"><i class="icon-file-text2 mr-2"></i> CSV</button>
+				    				</div>
+									<div class="history-chart chart" id="chart_history_steam_step"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="card bg-dark">
+								<div class="card-body">
+									<div class="d-flex justify-content-end mb-3">
+				    					<button type="button" class="btn btn-outline-primary btn-history-download-excel" data-category="steam" data-type="sum"><i class="icon-file-excel mr-2"></i> Excel</button>
+				    					<button type="button" class="btn btn-outline-success btn-history-download-csv ml-2" data-category="steam" data-type="sum"><i class="icon-file-text2 mr-2"></i> CSV</button>
+				    				</div>
+									<div class="history-chart chart" id="chart_history_steam_total"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="card bg-dark">
+								<div class="card-body">
+									<div class="d-flex justify-content-end mb-3">
+				    					<button type="button" class="btn btn-outline-primary btn-history-download-excel" data-category="steam" data-type="press"><i class="icon-file-excel mr-2"></i> Excel</button>
+				    					<button type="button" class="btn btn-outline-success btn-history-download-csv ml-2" data-category="steam" data-type="press"><i class="icon-file-text2 mr-2"></i> CSV</button>
+				    				</div>
+									<div class="history-chart chart" id="chart_history_steam_pressure"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="card bg-dark">
+								<div class="card-body">
+									<div class="d-flex justify-content-end mb-3">
+				    					<button type="button" class="btn btn-outline-primary btn-history-download-excel" data-category="steam" data-type="temp"><i class="icon-file-excel mr-2"></i> Excel</button>
+				    					<button type="button" class="btn btn-outline-success btn-history-download-csv ml-2" data-category="steam" data-type="temp"><i class="icon-file-text2 mr-2"></i> CSV</button>
+				    				</div>
+									<div class="history-chart chart" id="chart_history_steam_temp"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="inner-page" data-type="elec">
+					<div class="breadcrumb-line breadcrumb-line-light bg-dark breadcrumb-line-component header-elements-md-inline mb-2">
+						<div class="d-flex">
+							<div class="breadcrumb">
+								<span class="breadcrumb-item"><i class="icon-list mr-2"></i> 히스토리</span>
+								<span class="breadcrumb-item">에너지</span>
+								<span class="breadcrumb-item active">전력</span>
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-body d-flex">
+							<div class="d-flex align-items-center search-field ml-2">
+								<h6 class="">라인</h6>
+								<select class="form-control" id="sel_history_elec_line" disabled="disabled">
+									<option>PM1</option>
+									<option>PM2</option>
+									<option selected="selected">PM3</option>
+								</select>
+							</div>
+							<div class="d-flex align-items-center search-field">
+								<h6 class="">공정</h6>
+								<select class="form-control" id="sel_history_elec_process" disabled="disabled">
+									<option>조정</option>
+									<option selected="selected">초지</option>
+									<option>가공</option>
+									<option>완정</option>
+								</select>
+							</div>
+							<div class="d-flex align-items-center search-field ml-2">
+								<h6 class="">주기</h6>
+								<select class="form-control txt-period" id="sel_history_elec_period_type">
+									<option value="day">일</option>
+									<option value="week">주</option>
+									<option value="month">월</option>
+									<option value="year">년</option>
+								</select>
+							</div>
+							<div class="d-flex align-items-center search-field ml-2">
+								<h6 class="">기간</h6>
+								<input class="form-control txt-period-start" type="date" id="sel_history_elec_period_start">
+								<span class="mx-3">~</span>								
+								<input class="form-control txt-period-end" type="date" id="sel_history_elec_period_end">
+							</div>
+							<div class="ml-4">
+								<button type="button" class="btn btn btn-primary btn-100 btn-history-search" data-type="elec">정보 조회</button>		    					
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<div class="card bg-dark">
+								<div class="card-body">								
+									<div class="d-flex mb-3">
+										<div class="btn-group btn-group-toggle" data-toggle="buttons">
+											<label class="btn opt_history_elec_type1 active" data-step="kw">
+												<input type="radio" name="opt_history_elec_type1" autocomplete="off" checked>
+												순시전력
+											</label>
+								
+											<label class="btn opt_history_elec_type1" data-step="kwh">
+												<input type="radio" name="opt_history_elec_type1" autocomplete="off">
+												전력량
+											</label>
+										</div>
+										<div class="d-flex justify-content-end ml-auto">
+					    					<button type="button" class="btn btn-outline-primary btn-history-download-excel" data-category="elec" data-type="type1"><i class="icon-file-excel mr-2"></i> Excel</button>
+					    					<button type="button" class="btn btn-outline-success btn-history-download-csv ml-2" data-category="elec" data-type="type1"><i class="icon-file-text2 mr-2"></i> CSV</button>
+					    				</div>
+									</div>
+									<div class="history-chart chart" id="chart_history_elec_type1"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="card bg-dark">
+								<div class="card-body">							
+									<div class="d-flex mb-3">
+										<div class="btn-group btn-group-toggle" data-toggle="buttons">
+											<label class="btn opt_history_elec_type2 active" data-step="kw">
+												<input type="radio" name="opt_history_elec_type2" autocomplete="off" checked>
+												순시전력
+											</label>
+								
+											<label class="btn opt_history_elec_type2" data-step="kwh">
+												<input type="radio" name="opt_history_elec_type2" autocomplete="off">
+												전력량
+											</label>
+										</div>
+										<div class="d-flex justify-content-end ml-auto">
+					    					<button type="button" class="btn btn-outline-primary btn-history-download-excel" data-category="elec" data-type="type2"><i class="icon-file-excel mr-2"></i> Excel</button>
+					    					<button type="button" class="btn btn-outline-success btn-history-download-csv ml-2" data-category="elec" data-type="type2"><i class="icon-file-text2 mr-2"></i> CSV</button>
+					    				</div>
+									</div>
+									<div class="history-chart chart" id="chart_history_elec_type2"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="card bg-dark">
+								<div class="card-body">					
+									<div class="d-flex mb-3">
+										<div class="btn-group btn-group-toggle" data-toggle="buttons">
+											<label class="btn opt_history_elec_type3 active" data-step="kw">
+												<input type="radio" name="opt_history_elec_type3" autocomplete="off" checked>
+												순시전력
+											</label>
+								
+											<label class="btn opt_history_elec_type3" data-step="kwh">
+												<input type="radio" name="opt_history_elec_type3" autocomplete="off">
+												전력량
+											</label>
+										</div>
+										<div class="d-flex justify-content-end ml-auto">
+					    					<button type="button" class="btn btn-outline-primary btn-history-download-excel" data-category="elec" data-type="type3"><i class="icon-file-excel mr-2"></i> Excel</button>
+					    					<button type="button" class="btn btn-outline-success btn-history-download-csv ml-2" data-category="elec" data-type="type3"><i class="icon-file-text2 mr-2"></i> CSV</button>
+					    				</div>
+									</div>
+									<div class="history-chart chart" id="chart_history_elec_type3"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="card bg-dark">
+								<div class="card-body">					
+									<div class="d-flex mb-3">
+										<div class="btn-group btn-group-toggle" data-toggle="buttons">
+											<label class="btn opt_history_elec_total active" data-step="kw">
+												<input type="radio" name="opt_history_elec_total" autocomplete="off" checked>
+												순시전력
+											</label>
+								
+											<label class="btn opt_history_elec_total" data-step="kwh">
+												<input type="radio" name="opt_history_elec_total" autocomplete="off">
+												전력량
+											</label>
+										</div>
+										<div class="d-flex justify-content-end ml-auto">
+					    					<button type="button" class="btn btn-outline-primary btn-history-download-excel" data-category="elec" data-type="total"><i class="icon-file-excel mr-2"></i> Excel</button>
+					    					<button type="button" class="btn btn-outline-success btn-history-download-csv ml-2" data-category="elec" data-type="total"><i class="icon-file-text2 mr-2"></i> CSV</button>
+					    				</div>
+									</div>
+									<div class="history-chart chart" id="chart_history_elec_total"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="inner-page" data-type="system">
+					<div class="breadcrumb-line breadcrumb-line-light bg-dark breadcrumb-line-component header-elements-md-inline mb-2">
+						<div class="d-flex">
+							<div class="breadcrumb">
+								<span class="breadcrumb-item"><i class="icon-list mr-2"></i> 히스토리</span>
+								<span class="breadcrumb-item">공정</span>
+								<span class="breadcrumb-item active">설비&태그</span>
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-body d-flex">
+							<div class="d-flex align-items-center search-field ml-2">
+								<h6 class="">라인</h6>
+								<select class="form-control" id="sel_history_system_line" disabled="disabled">
+									<option>PM1</option>
+									<option>PM2</option>
+									<option selected="selected">PM3</option>
+								</select>
+							</div>
+							<div class="d-flex align-items-center search-field">
+								<h6 class="">공정</h6>
+								<select class="form-control" id="sel_history_system_process" disabled="disabled">
+									<option>조정</option>
+									<option selected="selected">초지</option>
+									<option>가공</option>
+									<option>완정</option>
+								</select>
+							</div>
+							<div class="d-flex align-items-center search-field ml-2">
+								<h6 class="">주기</h6>
+								<select class="form-control txt-period" id="sel_history_system_period_type">
+									<option value="day">일</option>
+									<option value="week">주</option>
+									<option value="month">월</option>
+									<option value="year">년</option>
+								</select>
+							</div>
+							<div class="d-flex align-items-center search-field ml-2">
+								<h6 class="">기간</h6>
+								<input class="form-control txt-period-start" type="date" id="sel_history_system_period_start">
+								<span class="mx-3">~</span>								
+								<input class="form-control txt-period-end" type="date" id="sel_history_system_period_end">
+							</div>
+							<div class="ml-4">
+								<button type="button" class="btn btn btn-primary btn-100 btn-history-search" data-type="system">정보 조회</button>		    					
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<div class="card bg-dark">
+								<div class="card-body">
+									<div class="d-flex mb-3">
+										<div class="btn-group btn-group-toggle" data-toggle="buttons">
+											<label class="btn opt_history_system_pre_dryer active" data-step="step1">
+												<input type="radio" name="opt_history_system_pre_dryer" autocomplete="off" checked>
+												DCS STM Press(Gr.1)
+											</label>
+		
+											<label class="btn opt_history_system_pre_dryer" data-step="step2">
+												<input type="radio" name="opt_history_system_pre_dryer" autocomplete="off">
+												DCS STM Press(Gr.2A)
+											</label>
+		
+											<label class="btn opt_history_system_pre_dryer" data-step="step3">
+												<input type="radio" name="opt_history_system_pre_dryer" autocomplete="off">
+												DCS STM Press(Gr.2B)
+											</label>
+		
+											<label class="btn opt_history_system_pre_dryer" data-step="step4">
+												<input type="radio" name="opt_history_system_pre_dryer" autocomplete="off">
+												DCS STM Press(Gr.3)
+											</label>
+										</div>
+										<div class="d-flex justify-content-end ml-auto">
+					    					<button type="button" class="btn btn-outline-primary btn-history-download-excel" data-category="system" data-type="pre_dryer"><i class="icon-file-excel mr-2"></i> Excel</button>
+					    					<button type="button" class="btn btn-outline-success btn-history-download-csv ml-2" data-category="system" data-type="pre_dryer"><i class="icon-file-text2 mr-2"></i> CSV</button>
+					    				</div>
+									</div>
+									<div class="history-chart chart" id="chart_history_system_pre_dryer"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="card bg-dark">
+								<div class="card-body">
+									<div class="d-flex mb-3">
+										<div class="btn-group btn-group-toggle" data-toggle="buttons">
+											<label class="btn opt_history_system_press active" data-step="step1">
+												<input type="radio" name="opt_history_system_press" autocomplete="off" checked>
+												QCS Size 평량
+											</label>
+		
+											<label class="btn opt_history_system_press" data-step="step2">
+												<input type="radio" name="opt_history_system_press" autocomplete="off">
+												QCS Size 수분량
+											</label>
+		
+											<label class="btn opt_history_system_press" data-step="step3">
+												<input type="radio" name="opt_history_system_press" autocomplete="off">
+												QCS STM Press(Gr.3)
+											</label>
+										</div>
+										<div class="d-flex justify-content-end ml-auto">
+					    					<button type="button" class="btn btn-outline-primary btn-history-download-excel" data-category="system" data-type="size_press"><i class="icon-file-excel mr-2"></i> Excel</button>
+					    					<button type="button" class="btn btn-outline-success btn-history-download-csv ml-2" data-category="system" data-type="size_press"><i class="icon-file-text2 mr-2"></i> CSV</button>
+					    				</div>
+									</div>
+									<div class="history-chart chart" id="chart_history_system_press"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="card bg-dark">
+								<div class="card-body">
+									<div class="d-flex mb-3">
+										<div class="btn-group btn-group-toggle" data-toggle="buttons">
+											<label class="btn opt_history_system_after_dryer active" data-step="step1">
+												<input type="radio" name="opt_history_system_after_dryer" autocomplete="off" checked>
+												DCS STM Press(Gr.4)
+											</label>
+		
+											<label class="btn opt_history_system_after_dryer" data-step="step2">
+												<input type="radio" name="opt_history_system_after_dryer" autocomplete="off">
+												DCS STM Press(Gr.5B)
+											</label>
+										</div>
+										<div class="d-flex justify-content-end ml-auto">
+					    					<button type="button" class="btn btn-outline-primary btn-history-download-excel" data-category="system" data-type="after_dryer"><i class="icon-file-excel mr-2"></i> Excel</button>
+					    					<button type="button" class="btn btn-outline-success btn-history-download-csv ml-2" data-category="system" data-type="after_dryer"><i class="icon-file-text2 mr-2"></i> CSV</button>
+					    				</div>
+									</div>
+									<div class="history-chart chart" id="chart_history_system_after_dryer"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="card bg-dark">
+								<div class="card-body">
+									<div class="d-flex mb-3">
+										<div class="btn-group btn-group-toggle" data-toggle="buttons">
+											<label class="btn opt_history_system_reel active" data-step="step1">
+												<input type="radio" name="opt_history_system_reel" class="opt_history_system_reel" data-step="1" autocomplete="off" checked>
+												QCS Size 평량
+											</label>
+		
+											<label class="btn opt_history_system_reel" data-step="step2">
+												<input type="radio" name="opt_history_system_reel" class="opt_history_system_reel" data-step="2" autocomplete="off">
+												QCS Size 수분량
+											</label>
+		
+											<label class="btn opt_history_system_reel" data-step="step3">
+												<input type="radio" name="opt_history_system_reel" class="opt_history_system_reel" data-step="3" autocomplete="off">
+												QCS STM Press(Gr.5T)
+											</label>
+										</div>
+										<div class="d-flex justify-content-end ml-auto">
+					    					<button type="button" class="btn btn-outline-primary btn-history-download-excel" data-category="system" data-type="reel"><i class="icon-file-excel mr-2"></i> Excel</button>
+					    					<button type="button" class="btn btn-outline-success btn-history-download-csv ml-2" data-category="system" data-type="reel"><i class="icon-file-text2 mr-2"></i> CSV</button>
+					    				</div>
+									</div>
+									<div class="history-chart chart" id="chart_history_system_reel"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="inner-page" data-type="papertype">
+					<div class="breadcrumb-line breadcrumb-line-light bg-dark breadcrumb-line-component header-elements-md-inline mb-2">
+						<div class="d-flex">
+							<div class="breadcrumb">
+								<span class="breadcrumb-item"><i class="icon-list mr-2"></i> 히스토리</span>
+								<span class="breadcrumb-item">공정</span>
+								<span class="breadcrumb-item active">지종</span>
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-body d-flex">
+							<div class="d-flex align-items-center search-field">
+								<h6 class="">지종</h6>
+								<select class="form-control" id="sel_history_paper_type">
+									<option>백상지</option>
+									<option>BP</option>
+									<option>ART</option>
+								</select>
+							</div>
+							<div class="d-flex align-items-center search-field ml-2">
+								<h6 class="">평량</h6>
+								<select class="form-control" id="sel_history_paper_water">
+									<option>저</option>
+									<option>중</option>
+									<option>대</option>
+								</select>
+							</div>
+							<div class="d-flex align-items-center search-field ml-2">
+								<h6 class="">주기</h6>
+								<select class="form-control txt-period" id="sel_history_paper_period_type">
+									<option value="day">일</option>
+									<option value="week">주</option>
+									<option value="month">월</option>
+									<option value="year">년</option>
+								</select>
+							</div>
+							<div class="d-flex align-items-center search-field ml-2">
+								<h6 class="">기간</h6>
+								<input class="form-control txt-period-start" type="date"  id="sel_history_paper_period_start">
+								<span class="mx-3">~</span>								
+								<input class="form-control txt-period-end" type="date"  id="sel_history_paper_period_end">
+							</div>
+							<div class="ml-4">
+								<button type="button" class="btn btn btn-primary btn-100 btn-history-search" data-type="paper">정보 조회</button>		    					
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<div class="card bg-dark">
+								<div class="card-body">
+									<div class="text-right mb-3">
+										<div class="btn-group btn-group-toggle" data-toggle="buttons">
+											<label class="btn active">
+												<input type="radio" name="opt_history_paper_type1" class="opt_history_paper_type1" data-step="1" autocomplete="off" checked>
+												생산시간
+											</label>
+		
+											<label class="btn">
+												<input type="radio" name="opt_history_paper_type1" class="opt_history_paper_type1" data-step="2" autocomplete="off">
+												생산량
+											</label>
+		
+											<label class="btn">
+												<input type="radio" name="opt_history_paper_type1" class="opt_history_paper_type1" data-step="3" autocomplete="off">
+												지종교체
+											</label>
+		
+											<label class="btn">
+												<input type="radio" name="opt_history_paper_type1" class="opt_history_paper_type1" data-step="4" autocomplete="off">
+												불량정보
+											</label>
+										</div>
+									</div>
+									<div class="history-chart chart" id="chart_history_paper_type1"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="card bg-dark">
+								<div class="card-body">
+									<div class="text-right mb-3">
+										<div class="btn-group btn-group-toggle" data-toggle="buttons">
+											<label class="btn active">
+												<input type="radio" name="opt_history_paper_type2" class="opt_history_paper_type2" data-step="1" autocomplete="off" checked>
+												생산시간
+											</label>
+		
+											<label class="btn">
+												<input type="radio" name="opt_history_paper_type2" class="opt_history_paper_type2" data-step="2" autocomplete="off">
+												생산량
+											</label>
+		
+											<label class="btn">
+												<input type="radio" name="opt_history_paper_type2" class="opt_history_paper_type2" data-step="3" autocomplete="off">
+												지종교체
+											</label>
+		
+											<label class="btn">
+												<input type="radio" name="opt_history_paper_type2" class="opt_history_paper_type2" data-step="4" autocomplete="off">
+												불량정보
+											</label>
+										</div>
+									</div>
+									<div class="history-chart chart" id="chart_history_paper_type2"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="card bg-dark">
+								<div class="card-body">
+									<div class="text-right mb-3">
+										<div class="btn-group btn-group-toggle" data-toggle="buttons">
+											<label class="btn active">
+												<input type="radio" name="opt_history_paper_type3" class="opt_history_paper_type3" data-step="1" autocomplete="off" checked>
+												생산시간
+											</label>
+		
+											<label class="btn">
+												<input type="radio" name="opt_history_paper_type3" class="opt_history_paper_type3" data-step="2" autocomplete="off">
+												생산량
+											</label>
+		
+											<label class="btn">
+												<input type="radio" name="opt_history_paper_type3" class="opt_history_paper_type3" data-step="3" autocomplete="off">
+												지종교체
+											</label>
+		
+											<label class="btn">
+												<input type="radio" name="opt_history_paper_type3" class="opt_history_paper_type3" data-step="4" autocomplete="off">
+												불량정보
+											</label>
+										</div>
+									</div>
+									<div class="history-chart chart" id="chart_history_paper_type3"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="card bg-dark">
+								<div class="card-body">
+									<div class="text-right mb-3">
+										<div class="btn-group btn-group-toggle" data-toggle="buttons">
+											<label class="btn active">
+												<input type="radio" name="opt_history_paper_type4" class="opt_history_paper_type4" data-step="1" autocomplete="off" checked>
+												생산시간
+											</label>
+		
+											<label class="btn">
+												<input type="radio" name="opt_history_paper_type4" class="opt_history_paper_type4" data-step="2" autocomplete="off">
+												생산량
+											</label>
+		
+											<label class="btn">
+												<input type="radio" name="opt_history_paper_type4" class="opt_history_paper_type4" data-step="3" autocomplete="off">
+												지종교체
+											</label>
+		
+											<label class="btn">
+												<input type="radio" name="opt_history_paper_type4" class="opt_history_paper_type4" data-step="4" autocomplete="off">
+												불량정보
+											</label>
+										</div>
+									</div>
+									<div class="history-chart chart" id="chart_history_paper_type4"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /main content -->
+			
+	</div>
+	
+</div>

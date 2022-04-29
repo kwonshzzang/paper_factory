@@ -5,7 +5,15 @@
  *******************************/
 
 var MainM = {
-	
+	isready : false,
+	pageurl : {
+		dashboard : "/pages/dashboard.html",
+		energy : "/pages/energy.html",
+		system : "/pages/system.html",
+		analysis : "/pages/analysis.html",
+		history : "/pages/history.html",
+		setting : "/pages/settings.html"
+	}
 };
 
 
@@ -13,25 +21,52 @@ MainM.INIT = function(){
 	
 	MainM.INIT_PAGE();
 	MainM.INIT_EVENT();
-	MainM.CHAGE_PAGE("dashboard");
 	
 };
 
 MainM.INIT_PAGE = function(){	
-	
 	var d = new Date();
-	var dashboard = "/pages/dashboard.html?v=" + d.getTime(); 
-	var analysis = "/pages/analysis.html?v=" + d.getTime(); 
-	var settings = "/pages/settings.html?v=" + d.getTime(); 
-	
-	MainM.LOAD_PAGE($("#page_dashboard"), dashboard);
-	MainM.LOAD_PAGE($("#page_analysis"), analysis);
-	MainM.LOAD_PAGE($("#page_settings"), settings);
+		
+	$("#page_dashboard").load(MainM.pageurl.dashboard + "?v=" + d.getTime(), function(data, status, xhr){
+		MainM.CHANGE_MENU("dashboard");
+	});
 };
 
-MainM.LOAD_PAGE = function(area, page){
+MainM.LOAD_PAGE = function(type){
+	
+	var d = new Date();
+	var area = null;
+	var page = "";
+	
+	switch(type){
+		case "dashboard": 
+		area = $("#page_dashboard");
+		page = MainM.pageurl.dashboard + "?v=" + d.getTime();
+		break;
+		case "energy": 
+		area = $("#page_energy");
+		page = MainM.pageurl.energy + "?v=" + d.getTime();
+		break;
+		case "system": 
+		area = $("#page_system");
+		page = MainM.pageurl.system + "?v=" + d.getTime();
+		break;
+		case "analysis": 
+		area = $("#page_analysis");
+		page = MainM.pageurl.analysis + "?v=" + d.getTime();
+		break;
+		case "history": 
+		area = $("#page_history");
+		page = MainM.pageurl.history + "?v=" + d.getTime();
+		break;
+		case "settings": 
+		area = $("#page_settings");
+		page = MainM.pageurl.settings + "?v=" + d.getTime();
+		break;
+	}	
+	
 	area.load(page, function(data, status, xhr){
-		
+		MainM.CHANGE_MENU(type);
 	});
 };
 
@@ -53,12 +88,17 @@ MainM.INIT_EVENT = function(){
 		var ele = $(this);
 		var type = ele.data("menu");
 		
-		MainM.CHAGE_PAGE(type);
+		if(type != "dashboard"){
+			MainM.LOAD_PAGE(type);
+		}else{
+			MainM.CHANGE_MENU(type);
+		}
+		
 	});
 	
 };
 
-MainM.CHAGE_PAGE = function(type){		
+MainM.CHANGE_MENU = function(type){		
 	$(".nav-item").removeClass("active");
 	$(".page").hide();
 	
@@ -67,9 +107,21 @@ MainM.CHAGE_PAGE = function(type){
 		$(".nav-dashboard").addClass("active");
 		$("#page_dashboard").show();
 		break;
+		case "energy":
+		$(".nav-energy").addClass("active");
+		$("#page_energy").show();
+		break;
+		case "system":
+		$(".nav-system").addClass("active");
+		$("#page_system").show();
+		break;
 		case "analysis":
 		$(".nav-analysis").addClass("active");
-		$("#page_analysis").show();		
+		$("#page_analysis").show();	
+		break;
+		case "history":
+		$(".nav-history").addClass("active");
+		$("#page_history").show();
 		break;
 		case "settings":
 		$(".nav-settings").addClass("active");

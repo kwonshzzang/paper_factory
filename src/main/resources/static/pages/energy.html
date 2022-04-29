@@ -1,0 +1,523 @@
+<style>
+.energy-info-group{
+	width: 240px;
+}
+
+.energy-info-chart{
+	margin-top: 20px;
+	min-height: 300px;
+}
+
+.energy-info-chart-short{
+	min-height: 200px;
+}
+
+.energy-info-chart-long{
+	margin-top: 20px;
+	min-height: 500px;
+}
+
+.energy-place-status{
+	font-size: 60px;
+}
+
+.btn-group .btn.active{
+	background: #2196f3;
+}
+
+</style>
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	ENERGY.INIT();
+});
+
+
+</script>
+
+
+<div class="page-container">
+	<div class="p-3">
+		<div class="row">
+			<div class="col-7">
+				<div class="card bg-dark">
+					<div class="card-header header-elements-inline">
+						<h5 class="card-title mr-3">공정 정보</h5>
+						<div class="header-elements">
+							<button type="button" class="btn bg-blue" id="btn_show_product_schedule">지종 생산 계획</button>
+						</div>
+					</div>	
+					<div class="card-body">
+						<div class="d-flex align-items-center justify-content-between">
+							<div class="input-group energy-info-group text-center">
+								<span class="input-group-prepend">
+									<span class="input-group-text text-success border-success">라인</span>
+								</span>
+								<span class="form-control border-success border-left-0 " id="txt_energy_product_line">PM3</span>
+							</div>
+							<div class="input-group energy-info-group text-center">
+								<span class="input-group-prepend">
+									<span class="input-group-text text-success border-success">공정</span>
+								</span>
+								<span class="form-control border-success border-left-0" id="txt_energy_product_process">초지</span>
+							</div>
+							<div class="input-group energy-info-group text-center">
+								<span class="input-group-prepend">
+									<span class="input-group-text text-success border-success">생산지종</span>
+								</span>
+								<span class="form-control border-success border-left-0" id="txt_energy_product_type">BP</span>
+							</div>
+							<div class="input-group energy-info-group text-center">
+								<span class="input-group-prepend">
+									<span class="input-group-text text-success border-success">평량</span>
+								</span>
+								<span class="form-control border-success border-left-0" id="txt_energy_product_weight">77</span>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</div>
+			<div class="col-5">
+				<div class="card bg-dark">
+					<div class="card-header header-elements-inline">
+						<div class="d-flex align-items-center">
+							<h5 class="card-title mr-3">현재 운전 상태</h5>
+							<button type="button" class="btn text-success  ml-2" id="spinner-dark-4">
+								<i class="icon-spinner4 spinner mr-2"></i>
+								진행중
+							</button>
+						</div>
+						<div class="header-elements">
+							<button type="button" class="btn bg-blue" id="btn_show_system_info">설비/작업자 정보</button>
+						</div>
+					</div>	
+					<div class="card-body">
+						<div class="d-flex align-items-center justify-content-between">
+							<div class="input-group energy-info-group text-center">
+								<span class="input-group-prepend">
+									<span class="input-group-text text-success border-success">온도</span>
+								</span>
+								<span class="form-control border-success border-left-0 ">24°C</span>
+							</div>
+							<div class="input-group energy-info-group text-center">
+								<span class="input-group-prepend">
+									<span class="input-group-text text-success border-success">습도</span>
+								</span>
+								<span class="form-control border-success border-left-0">88 %</span>
+							</div>
+							<div class="input-group energy-info-group text-center">
+								<span class="input-group-prepend">
+									<span class="input-group-text text-success border-success">공간 정보</span>
+								</span>
+								<span class="form-control border-success border-left-0">PM3</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-9">				
+				<div class="row">
+					<div class="col-5">				
+						<div class="card bg-dark" style="height: 500px;">
+					
+							<div class="card-body">
+								<div class="d-flex mb-2">
+									<h6 style="font-size: 30px;">현재 생산량</h6>
+									<div class="ml-auto">
+										<button type="button" class="btn bg-blue" id="btn_show_process_time">작업 시간</button>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-5">
+										<div class="my-2">					
+											<div class="font-weight-semibold text-success text-right" style="font-size: 60px" id="txt_plan_output_today">-</div>
+										</div>
+										<div class="pt-2 d-flex">	
+											<div>		
+												<h6 class="mb-0">금일 총 생산 목표</h6>
+												<div class="font-weight-semibold text-primary" style="font-size: 30px" id="txt_plan_output_month">-</div>
+											</div>
+											<div class="ml-auto">		
+												<h6 class="mb-0">달성률</h6>
+												<div class="font-weight-semibold text-primary" style="font-size: 30px" id="txt_plan_output_percent">-%</div>
+											</div>													
+										</div>
+									</div>
+									<div class="col-7">
+										<div class="energy-info-chart chart" id="chart_energy_goal_pie" style="height: 380px;">
+										</div>
+									</div>
+								</div>
+								
+								
+							</div>
+						</div>
+					</div>
+					<div class="col-5">		
+						<div class="card bg-dark" style="height: 500px;">
+							<div class="card-body">	
+								<div class="d-flex align-items-end">
+									<h1 class="mb-0" style="font-size: 30px;">누적 에너지 총 비용</h1>
+									<h1 class="font-weight-semibold text-success mb-0 ml-auto" style="font-size: 30px"><span id="txt_energy_cost_total">-</span><span class="ml-2">원</span></h1>
+								</div>
+								<div class="row">
+									<div class="col-6 text-center">
+										<div class="energy-info-chart chart" id="chart_energy_gauge_steam" style="height:350px;">
+										</div>
+										<div style="font-size: 24px;margin-top:-40px">월 스팀 사용량</div>
+									</div>
+									<div class="col-6 text-center">
+										<div class="energy-info-chart chart" id="chart_energy_gauge_elec" style="height:350px;">
+										</div>
+										<div style="font-size: 24px;margin-top:-40px">월 전력 사용량</div>
+									</div>
+								</div>		
+							</div>
+						</div>
+					</div>
+					<div class="col-2">		
+						<div class="card bg-dark">
+							<div class="card-body">
+								<div class="energy-info-chart-short chart" id="chart_energy_bar_usage_steam">
+								</div>
+							</div>
+						</div>
+						<div class="card bg-dark">
+							<div class="card-body">
+								<div class="energy-info-chart-short chart" id="chart_energy_bar_usage_elec">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>			
+				<div class="row">
+					<div class="col-6">							
+						<div class="card bg-dark">
+							<div class="card-body">
+								<div class="d-flex">
+									<h6>스팀 에너지 사용 현황</h6>
+									<div class="btn-group btn-group-toggle ml-auto" data-toggle="buttons">
+										<label class="btn active opt_energy_steam" data-step="step1">
+											<input type="radio" name="opt_energy_steam" autocomplete="off" checked>
+											순시유량
+										</label>
+	
+										<label class="btn opt_energy_steam" data-step="step2">
+											<input type="radio" name="opt_energy_steam" autocomplete="off">
+											적산유량
+										</label>
+	
+										<label class="btn opt_energy_steam" data-step="step3">
+											<input type="radio" name="opt_energy_steam" autocomplete="off">
+											압력
+										</label>
+	
+										<label class="btn opt_energy_steam" data-step="step4">
+											<input type="radio" name="opt_energy_steam" autocomplete="off">
+											온도
+										</label>
+									</div>
+								</div>
+								<div class="mt-3">
+									<div class="energy-info-chart-long chart" id="chart_energy_steam_line">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-6">					
+						<div class="card bg-dark">
+							<div class="card-body">								
+								<div class="d-flex">
+									<h6>전력 에너지 사용 현황</h6>
+									<div class="btn-group btn-group-toggle ml-auto" data-toggle="buttons">
+										<label class="btn active opt_energy_elec" data-step="step1" >
+											<input type="radio" name="opt_energy_elec" autocomplete="off" checked>
+											D5-1
+										</label>
+	
+										<label class="btn opt_energy_elec" data-step="step2" >
+											<input type="radio" name="opt_energy_elec" autocomplete="off">
+											D5-2
+										</label>
+	
+										<label class="btn opt_energy_elec" data-step="step3" >
+											<input type="radio" name="opt_energy_elec" autocomplete="off">
+											D5-3
+										</label>
+	
+										<label class="btn opt_energy_elec" data-step="total" >
+											<input type="radio" name="opt_energy_elec" autocomplete="off">
+											합계
+										</label>
+									</div>
+								</div>
+								<div class="mt-3">
+									<div class="energy-info-chart-long chart" id="chart_energy_elec_line">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-3">		
+				<div class="row">
+					<div class="col-3">
+						<div class="card bg-primary">
+							<div class="card-body text-center">
+								<h1 class="energy-place-status" id="txt_energy_place_total">80</h1>
+								<div>전체 검침 개소</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="card bg-success">
+							<div class="card-body text-center">
+								<h1 class="energy-place-status" id="txt_energy_place_noraml">68</h1>
+								<div>정상</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="card bg-orange">
+							<div class="card-body text-center">
+								<h1 class="energy-place-status" id="txt_energy_place_unusage">8</h1>
+								<div>미사용</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="card bg-danger">
+							<div class="card-body text-center">
+								<h1 class="energy-place-status" id="txt_energy_place_error">4</h1>
+								<div>통신이상</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card bg-dark">
+					<div class="card-body">
+						<div class="energy-info-chart chart" id="chart_energy_bar_vs_total">
+						</div>
+					</div>
+				</div>
+				<div class="card bg-dark">
+					<div class="card-body">
+						<h6>지절/불량 정보</h6>
+						<div class="mt-3">
+							<table class="table" id="tbl_energy_fault">
+								<thead>
+									<tr>
+										<th>발생날짜</th>
+										<th>지종</th>
+										<th>이벤트 내역</th>
+										<th>비고</th>
+									</tr>
+								</thead>
+								<tbody id="tbl_energy_fault_body">
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="card bg-dark">
+					<div class="card-body">
+						<h6>시스템 로그</h6>
+						<div class="mt-3">
+							<table class="table" id="tbl_energy_syslog">
+								<thead>
+									<tr>
+										<th>발생날짜</th>
+										<th>메시지</th>
+									</tr>
+								</thead>
+								<tbody id="tbl_energy_syslog_body">
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- ################################################# -->
+<!-- Modal Defined Area -->       
+<!-- ################################################# -->
+
+<div class="container-modal">	
+
+	<!-- Modal Product Schedule -->
+	<div id="modal_energy_production_schedule" class="modal fade" data-backdrop="false" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable modal-xlg">
+			<div class="modal-content border-white">
+				<div class="modal-header">
+					<h5 class="modal-title">지종 생산 계획</h5>
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div>
+
+				<div class="modal-body">									
+					<table class="table" id="tbl_energy_product_plan">
+						<thead>
+							<tr>
+								<th>제조번호</th>
+								<th>시작시간</th>
+								<th>완료시간</th>
+								<th>생산량</th>
+								<th>지종</th>
+								<th>지종평량</th>
+								<th>코팅지종</th>
+								<th>코팅지종평량</th>
+								<th>권취</th>
+								<th>스키드</th>
+								<th>비고</th>
+							</tr>
+						</thead>
+						<tbody id="tbl_energy_product_plan_body">
+							
+						</tbody>
+					</table>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link ml-auto" data-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>		
+	<!-- END Product Schedule -->
+		
+
+	<!-- Modal System Info -->
+	<div id="modal_energy_system_info" class="modal fade" data-backdrop="false" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable modal-xl">
+			<div class="modal-content border-white">
+				<div class="modal-header">
+					<h5 class="modal-title">설비/작업자 정보</h5>
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div>
+
+				<div class="modal-body">									
+					<table class="table" id="tbl_dashboard_alarm">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>발생 장비 ID</th>
+								<th>경고 내용</th>
+								<th>발생 일자</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>320PIC7509</td>
+								<td>과열</td>
+								<td>2022-01-01 11:11:00</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>320PIC7511</td>
+								<td>압력 경고</td>
+								<td>2022-01-01 11:11:00</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>320PIC7514</td>
+								<td>멈춤</td>
+								<td>2022-01-01 11:11:00</td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td>320PIC7513</td>
+								<td>신호 수신 불량</td>
+								<td>2022-01-01 11:11:00k</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link ml-auto" data-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>		
+	<!-- END  System Info -->	
+
+	<!-- Modal Process Time -->
+	<div id="modal_energy_process_time" class="modal fade" data-backdrop="false" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content border-white bg-dark">
+				<div class="modal-header">
+					<h5 class="modal-title">작업 시간</h5>
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div>
+
+				<div class="modal-body">									
+					<div class="row">
+						<div class="col-6">
+							<div class="card bg-primary mb-0">
+								<div class="card-header bg-transparent header-elements-inline">
+									<span class="card-title font-weight-semibold">공정 소요 시간</span>									
+								</div>
+
+								<div class="card-body">								
+
+								    <div class="d-flex justify-content-center text-center mb-2">
+								        <div class="timer-number font-weight-light">
+								        	<span id="txt_modal_process_time_hour">09</span> <span class="d-block font-size-base mt-2">hours</span>
+								        </div>
+								        <div class="timer-dots mx-1">:</div>
+								        <div class="timer-number font-weight-light">
+								        	<span id="txt_modal_process_time_minute">09</span> <span class="d-block font-size-base mt-2">minutes</span>
+								        </div>
+								        <div class="timer-dots mx-1">:</div>
+								        <div class="timer-number font-weight-light">
+								        	<span id="txt_modal_process_time_second">00</span> <span class="d-block font-size-base mt-2">seconds</span>
+								        </div>
+								    </div>
+								</div>								
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="card bg-success mb-0">
+								<div class="card-header bg-transparent header-elements-inline">
+									<span class="card-title font-weight-semibold">예상/목표 시간</span>									
+								</div>
+
+								<div class="card-body">								
+
+								    <div class="d-flex justify-content-center text-center mb-2">
+								        <div class="timer-number font-weight-light">
+								        	<span id="txt_modal_goal_time_hour">09</span> <span class="d-block font-size-base mt-2">hours</span>
+								        </div>
+								        <div class="timer-dots mx-1">:</div>
+								        <div class="timer-number font-weight-light">
+								        	<span id="txt_modal_goal_time_minute">09</span> <span class="d-block font-size-base mt-2">minutes</span>
+								        </div>
+								        <div class="timer-dots mx-1">:</div>
+								        <div class="timer-number font-weight-light">
+								        	<span id="txt_modal_goal_time_second">00</span> <span class="d-block font-size-base mt-2">seconds</span>
+								        </div>
+								    </div>
+								</div>								
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link ml-auto" data-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>		
+	<!-- END Process Time -->
+</div>

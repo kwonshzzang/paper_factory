@@ -14,11 +14,97 @@ $(document).ready(function(){
 			<h1> <span class="font-weight-semibold">Settings</span></h1>					
 		</div>
 		<ul class="nav nav-tabs nav-tabs-bottom mb-1">
-			<li class="nav-item"><a href="#tab-setting-server-info" class="nav-link active" data-toggle="tab">Server</a></li>		
+			<li class="nav-item"><a href="#tab-setting-goal" class="nav-link active" data-toggle="tab">목표 설정</a></li>	
+			<li class="nav-item"><a href="#tab-setting-server-info" class="nav-link" data-toggle="tab">Server</a></li>	
 		</ul>
 	
 		<div class="tab-content">
-			<div class="tab-pane fade show active" id="tab-setting-server-info">
+			<div class="tab-pane fade show active" id="tab-setting-goal">
+				<div class="row">
+					<div class="col-4">
+						<div class="card bg-dark h-100">
+							<div class="card-header header-elements-inline">
+								<h5 class="card-title mr-3">생산 목표</h5>
+								<div class="header-elements">
+									<button type="button" class="btn bg-primary" id="btn_save_setting_goal_plan"><i class="icon-floppy-disk mr-2"></i> 설정 저장</button>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="form-group row">
+									<label class="col-form-label col-lg-2">생산량</label>
+									<div class="col-lg-10">
+										<input type="text" class="form-control" id="txt_setting_goal_plan_count">
+									</div>
+								</div>
+							</div>	
+						</div>
+					</div>
+					<div class="col-4">
+						<div class="card bg-dark h-100">
+							<div class="card-header header-elements-inline">
+								<h5 class="card-title mr-3">스팀 사용 목표</h5>
+								<div class="header-elements">
+									<button type="button" class="btn bg-primary" id="btn_save_setting_goal_steam"><i class="icon-floppy-disk mr-2"></i> 설정 저장</button>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="form-group row">
+									<label class="col-form-label col-lg-2">사용량</label>
+									<div class="col-lg-10 d-flex align-items-center">
+										<input type="text" class="form-control" id="txt_setting_goal_steam_count">
+										<span class="ml-3" id="txt_setting_goal_steam_unit">TON</span>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-form-label col-lg-2">시작일</label>
+									<div class="col-lg-10">
+										<input type="date" class="form-control" id="txt_setting_goal_steam_start">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-form-label col-lg-2">종료일</label>
+									<div class="col-lg-10">
+										<input type="date" class="form-control" id="txt_setting_goal_steam_end">
+									</div>
+								</div>
+							</div>	
+						</div>
+					</div>
+					<div class="col-4">
+						<div class="card bg-dark h-100">
+							<div class="card-header header-elements-inline">
+								<h5 class="card-title mr-3">전력 사용 목표</h5>
+								<div class="header-elements">
+									<button type="button" class="btn bg-primary" id="btn_save_setting_goal_elec"><i class="icon-floppy-disk mr-2"></i> 설정 저장</button>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="form-group row">
+									<label class="col-form-label col-lg-2">사용량</label>
+									<div class="col-lg-10 d-flex align-items-center">
+										<input type="text" class="form-control" id="txt_setting_goal_elec_count">
+										<span class="ml-3" id="txt_setting_goal_elec_unit">KWH</span>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-form-label col-lg-2">시작일</label>
+									<div class="col-lg-10">
+										<input type="date" class="form-control" id="txt_setting_goal_elec_start">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-form-label col-lg-2">종료일</label>
+									<div class="col-lg-10">
+										<input type="date" class="form-control" id="txt_setting_goal_elec_end">
+									</div>
+								</div>
+							</div>	
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			<div class="tab-pane fade" id="tab-setting-server-info">
 				<div class="card bg-dark">
 					<div class="card-body">
 						<fieldset>
@@ -51,6 +137,8 @@ $(document).ready(function(){
 					</div>
 				</div>
 			</div>
+			
+			
 		</div>
 	</div>
 </div>
