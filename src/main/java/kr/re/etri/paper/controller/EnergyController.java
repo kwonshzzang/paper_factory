@@ -123,7 +123,6 @@ public class EnergyController {
 				
 		return result;
 	}
-	
 
 	
 	@GetMapping("/process/changetime")
@@ -133,6 +132,18 @@ public class EnergyController {
 		result.put("check", true);
 		
 		Map<String, Object> item = SERVICE.getProcessChangeTime();
+		result.put("result", item);
+				
+		return result;
+	}
+
+	@GetMapping("/equipment/now")
+	public Map<String, Object> getEquipmentNow(){
+
+		Map<String, Object> result = new HashMap<>();
+		result.put("check", true);
+		
+		Map<String, Object> item = SERVICE.getNow_Equipment_Worker();
 		result.put("result", item);
 				
 		return result;

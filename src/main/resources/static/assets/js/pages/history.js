@@ -60,7 +60,7 @@ HISTORY.INIT_EVENT = function(){
 			HISTORY.CHART.CREATE_SYSTEM();
 			break;
 			case "paper":
-			HISTORY.CHART.CREATE_PAPERTYPE();
+			HISTORY.CHART.CREATE_PAPER();
 			break;
 		}
 	});
@@ -77,7 +77,7 @@ HISTORY.INIT_EVENT = function(){
 	$(".btn-history-download-csv").off("click").on("click", function(){
 		var category = $(this).data("category");
 		var type = $(this).data("type");
-				
+		
 		HISTORY.DOWNLOAD_CSV(category, type);
 	});
 		
@@ -98,8 +98,8 @@ HISTORY.CHANGE_PAGE = function(type){
 		case "system":
 		HISTORY.UI.INIT_SYSTEM();
 		break;
-		case "papertype":
-		HISTORY.UI.INIT_PAPERTYPE();
+		case "paper":
+		HISTORY.UI.INIT_PAPER();
 		break;
 	}
 	
@@ -111,8 +111,12 @@ HISTORY.DOWNLOAD_EXCEL = function(category, type){
 	
 	var list = result.list;
 	var name = result.name;
-		
-	UtilM.DOWNLOAD_EXCEL("날짜,최소값,최대값,평균값", list, name);
+			
+	if(category == "paper"){
+		UtilM.DOWNLOAD_PAPER_EXCEL(["지종","평량","값"], list, name);
+	}else{
+		UtilM.DOWNLOAD_EXCEL("날짜,최소값,최대값,평균값", list, name);
+	}
 };
 
 HISTORY.DOWNLOAD_CSV = function(category, type){
@@ -120,8 +124,13 @@ HISTORY.DOWNLOAD_CSV = function(category, type){
 	
 	var list = result.list;
 	var name = result.name;
+			
+	if(category == "paper"){
+		UtilM.DOWNLOAD_PAPER_CSV(["지종","평량","값"], list, name);
+	}else{
+		UtilM.DOWNLOAD_CSV("날짜,최소값,최대값,평균값", list, name);
+	}
 	
-	UtilM.DOWNLOAD_CSV("날짜,최소값,최대값,평균값", list, name);
 };
 
 HISTORY.GET_CHART_DATA = function(category, type){
@@ -189,7 +198,25 @@ HISTORY.GET_CHART_DATA = function(category, type){
 			break;
 		}
 		break;
-		case "papertype":
+		case "paper":
+		switch(type){
+			case "type1":
+			name = $("#chart_history_paper_type1").data("name");
+			list = $("#chart_history_paper_type1").data("list");
+			break;
+			case "type2":
+			name = $("#chart_history_paper_type2").data("name");
+			list = $("#chart_history_paper_type2").data("list");
+			break;
+			case "type3":
+			name = $("#chart_history_paper_type3").data("name");
+			list = $("#chart_history_paper_type3").data("list");
+			break;
+			case "type4":
+			name = $("#chart_history_paper_type4").data("name");
+			list = $("#chart_history_paper_type4").data("list");
+			break;
+		}
 		break;
 	}
 	
@@ -358,37 +385,36 @@ HISTORY.UI.INIT_SYSTEM = function(){
 		
 };
 
-HISTORY.UI.INIT_PAPERTYPE = function(){
+HISTORY.UI.INIT_PAPER = function(){
 	
 	$(".opt_history_paper_type1").off("click").on("click", function(){
 		var step = $(this).data("step");
 		
-		console.log("CLICK PRE DRYER", "STEP" + step);
-		
+		HISTORY.REQ.LOAD_PAPER_TYPE1(step);
 	});
 	
 	$(".opt_history_paper_type2").off("click").on("click", function(){
 		var step = $(this).data("step");
 		
-		console.log("CLICK PRE DRYER", "STEP" + step);
+		HISTORY.REQ.LOAD_PAPER_TYPE2(step);
 		
 	});
 	
 	$(".opt_history_paper_type3").off("click").on("click", function(){
 		var step = $(this).data("step");
 		
-		console.log("CLICK PRE DRYER", "STEP" + step);
+		HISTORY.REQ.LOAD_PAPER_TYPE3(step);
 		
 	});
 	
 	$(".opt_history_paper_type4").off("click").on("click", function(){
 		var step = $(this).data("step");
 		
-		console.log("CLICK PRE DRYER", "STEP" + step);
+		HISTORY.REQ.LOAD_PAPER_TYPE4(step);
 		
 	});
 	
-	HISTORY.CHART.CREATE_PAPERTYPE();
+	HISTORY.CHART.CREATE_PAPER();
 		
 };
 
@@ -644,11 +670,15 @@ HISTORY.CHART.CREATE_STEAM = function(){
  *******************************/
 
 HISTORY.CHART.CREATE_ELEC = function(){
+	var type1 = $(".opt_history_elec_type1.active").data("step");
+	var type2 = $(".opt_history_elec_type2.active").data("step");
+	var type3 = $(".opt_history_elec_type3.active").data("step");
+	var total = $(".opt_history_elec_total.active").data("step");
 	
-	HISTORY.REQ.LOAD_ELEC_TYPE1("kw");
-	HISTORY.REQ.LOAD_ELEC_TYPE2("kw");
-	HISTORY.REQ.LOAD_ELEC_TYPE3("kw");
-	HISTORY.REQ.LOAD_ELEC_TOTAL("kw");
+	HISTORY.REQ.LOAD_ELEC_TYPE1(type1);
+	HISTORY.REQ.LOAD_ELEC_TYPE2(type2);
+	HISTORY.REQ.LOAD_ELEC_TYPE3(type3);
+	HISTORY.REQ.LOAD_ELEC_TOTAL(total);
 		
 };
 
@@ -922,10 +952,15 @@ HISTORY.REQ.LOAD_ELEC_TOTAL = function(step){
  *******************************/
 HISTORY.CHART.CREATE_SYSTEM = function(){
 	
-	HISTORY.REQ.LOAD_TAGS_PRE("step1");
-	HISTORY.REQ.LOAD_TAGS_SIZE_PRESS("step1");
-	HISTORY.REQ.LOAD_TAGS_AFTER("step1");
-	HISTORY.REQ.LOAD_TAGS_REEL("step1");
+	var pre_dryer = $(".opt_history_system_pre_dryer.active").data("step");
+	var size_press = $(".opt_history_system_press.active").data("step");
+	var after_dryer = $(".opt_history_system_after_dryer.active").data("step");
+	var reel = $(".opt_history_system_reel.active").data("step");
+		
+	HISTORY.REQ.LOAD_TAGS_PRE(pre_dryer);
+	HISTORY.REQ.LOAD_TAGS_SIZE_PRESS(size_press);
+	HISTORY.REQ.LOAD_TAGS_AFTER(after_dryer);
+	HISTORY.REQ.LOAD_TAGS_REEL(reel);
 	
 };
 
@@ -1184,13 +1219,9 @@ HISTORY.REQ.LOAD_TAGS_REEL = function(step){
  * LOAD PAPER TYPE FUNCTION
  *
  *******************************/
+
 HISTORY.CHART.CREATE_PAPERTYPE = function(){
-	HISTORY.CHART.CREATE_LINE("chart_history_paper_type1",{
-		title : "순시유량",
-		unit : "평량",
-		color : "#66bb6a",
-		list : []
-	});
+	HISTORY.REQ.LOAD_PAPER_TYPE1("time");
 	
 	HISTORY.CHART.CREATE_LINE("chart_history_paper_type2",{
 		title : "적산유량",
@@ -1215,6 +1246,267 @@ HISTORY.CHART.CREATE_PAPERTYPE = function(){
 };
 
 
+HISTORY.CHART.CREATE_PAPER = function(){
+	/*
+	BP : 아트지, 도공지
+	SB : SB
+	SW-BP : 스노우화이트아트지, 도공지
+	Fine : 백상지, 비도공지
+	*/
+	
+	var type1 = $(".opt_history_paper_type1.active").data("step");
+	var type2 = $(".opt_history_paper_type2.active").data("step");
+	var type3 = $(".opt_history_paper_type3.active").data("step");
+	var type4 = $(".opt_history_paper_type4.active").data("step");		
+	
+	HISTORY.REQ.LOAD_PAPER_TYPE1(type1);
+	HISTORY.REQ.LOAD_PAPER_TYPE2(type2);
+	HISTORY.REQ.LOAD_PAPER_TYPE3(type3);
+	HISTORY.REQ.LOAD_PAPER_TYPE4(type4);
+	
+};
+
+HISTORY.REQ.LOAD_PAPER_TYPE1 = function(step){
+	/*
+	BP : 아트지, 도공지
+	SB : SB
+	SW-BP : 스노우화이트아트지, 도공지
+	Fine : 백상지, 비도공지
+	*/
+	var search = HISTORY.GET_SEARCH_DATA("paper");
+	
+	var period = search.period;
+	var from = search.start;
+	var to = search.end;
+	
+	from += " 00:00:00";
+	to += " 23:59:59";
+	
+	RM.GET({
+		path : "/history/paper/Fine/" + step + "/" + from + "/" + to
+	}, function(json){		
+				
+		if(json.check){
+			var list = json.result.list;
+			var datalist = [];
+			var name = "백상지,비도공지";
+			
+			var unit = "";
+			
+			if(step == "time" || step == "change"){
+				unit = "Hours";
+			}
+			
+			$.each(list, function(i, item){
+				datalist.push([item.weight, item.result]);
+			});
+			
+			$("#chart_history_paper_type1").data("list", list);		
+			$("#chart_history_paper_type1").data("name", name);	
+			HISTORY.CHART.CREATE_BAR("chart_history_paper_type1",{
+				title : name,
+				unit : unit,
+				color : "#66bb6a",
+				category : [],
+				list : [{
+					type : "bar",
+      				barWidth: '30%',
+					name : name,
+				    tooltip: {
+				      valueFormatter: function (value) {
+				        return value + ' ' + unit;
+				      }
+				    },
+					data : datalist
+				}]
+			});
+		}
+	});
+};
+
+HISTORY.REQ.LOAD_PAPER_TYPE2 = function(step){
+	/*
+	BP : 아트지, 도공지
+	SB : SB
+	SW-BP : 스노우화이트아트지, 도공지
+	Fine : 백상지, 비도공지
+	*/
+	var search = HISTORY.GET_SEARCH_DATA("paper");
+	
+	var period = search.period;
+	var from = search.start;
+	var to = search.end;
+	
+	from += " 00:00:00";
+	to += " 23:59:59";
+	
+	RM.GET({
+		path : "/history/paper/BP/" + step + "/" + from + "/" + to
+	}, function(json){		
+				
+		if(json.check){
+			var list = json.result.list;
+			var datalist = [];
+			var name = "아트지,도공지";
+			
+			var unit = "";
+			
+			if(step == "time" || step == "change"){
+				unit = "Hours";
+			}
+			
+			$.each(list, function(i, item){
+				datalist.push([item.weight, item.result]);
+			});
+			
+			$("#chart_history_paper_type2").data("list", list);		
+			$("#chart_history_paper_type2").data("name", name);	
+			HISTORY.CHART.CREATE_BAR("chart_history_paper_type2",{
+				title : name,
+				unit : unit,
+				color : "#2196f3",
+				category : [],
+				list : [{
+					type : "bar",
+      				barWidth: '30%',
+					name : name,
+				    tooltip: {
+				      valueFormatter: function (value) {
+				        return value + ' ' + unit;
+				      }
+				    },
+					data : datalist
+				}]
+			});
+		}
+	});
+	
+};
+
+HISTORY.REQ.LOAD_PAPER_TYPE3 = function(step){
+	/*
+	BP : 아트지, 도공지
+	SB : SB
+	SW-BP : 스노우화이트아트지, 도공지
+	Fine : 백상지, 비도공지
+	*/
+	var search = HISTORY.GET_SEARCH_DATA("paper");
+	
+	var period = search.period;
+	var from = search.start;
+	var to = search.end;
+	
+	from += " 00:00:00";
+	to += " 23:59:59";
+	
+	RM.GET({
+		path : "/history/paper/SB/" + step + "/" + from + "/" + to
+	}, function(json){		
+				
+		if(json.check){
+			var list = json.result.list;
+			var datalist = [];
+			var name = "SB";
+			
+			var unit = "";
+			
+			if(step == "time" || step == "change"){
+				unit = "Hours";
+			}
+			
+			$.each(list, function(i, item){
+				datalist.push([item.weight, item.result]);
+			});
+			
+			$("#chart_history_paper_type3").data("list", list);		
+			$("#chart_history_paper_type3").data("name", name);	
+			HISTORY.CHART.CREATE_BAR("chart_history_paper_type3",{
+				title : name,
+				unit : unit,
+				color : "#FFBF00",
+				category : [],
+				list : [{
+					type : "bar",
+      				barWidth: '30%',
+					name : name,
+				    tooltip: {
+				      valueFormatter: function (value) {
+				        return value + ' ' + unit;
+				      }
+				    },
+					data : datalist
+				}]
+			});
+		}
+	});
+	
+};
+
+HISTORY.REQ.LOAD_PAPER_TYPE4 = function(step){
+	/*
+	BP : 아트지, 도공지
+	SB : SB
+	SW-BP : 스노우화이트아트지, 도공지
+	Fine : 백상지, 비도공지
+	*/
+	var search = HISTORY.GET_SEARCH_DATA("paper");
+	
+	var period = search.period;
+	var from = search.start;
+	var to = search.end;
+	
+	from += " 00:00:00";
+	to += " 23:59:59";
+	
+	RM.GET({
+		path : "/history/paper/SW-BP/" + step + "/" + from + "/" + to
+	}, function(json){		
+				
+		if(json.check){
+			var list = json.result.list;
+			var datalist = [];
+			var name = "스노우화이트아트지,도공지";
+			
+			var unit = "";
+			
+			if(step == "time" || step == "change"){
+				unit = "Hours";
+			}
+			
+			$.each(list, function(i, item){
+				datalist.push([item.weight, item.result]);
+			});
+			
+			$("#chart_history_paper_type4").data("list", list);		
+			$("#chart_history_paper_type4").data("name", name);	
+			HISTORY.CHART.CREATE_BAR("chart_history_paper_type4",{
+				title : name,
+				unit : unit,
+				color : "#7B1FA2",
+				category : [],
+				list : [{
+					type : "bar",
+      				barWidth: '30%',
+					name : name,
+				    tooltip: {
+				      valueFormatter: function (value) {
+				        return value + ' ' + unit;
+				      }
+				    },
+					data : datalist
+				}]
+			});
+		}
+	});
+	
+};
+	
+
+/******************************
+ *
+ * CREATE CHART FUNCTION
+ *
+ *******************************/
 HISTORY.CHART.CREATE_LINE_STEAM = function(id, item = null){
 	
 	var series = [];	
@@ -1613,6 +1905,60 @@ HISTORY.CHART.CREATE_LINE = function(id, item = null){
 			series : series
 			
 	};
+	
+	var chart = ChartM.getChart(id);
+	
+	if(chart){
+		
+	}else{
+		chart = ChartM.chart.init(document.querySelector("#" + id));
+	}
+	
+	chart.setOption(option);
+};
+
+HISTORY.CHART.CREATE_BAR = function(id, item){
+	
+	var title = item.title;
+	var unit = item.unit;		
+	
+	var option = {
+			color : [
+				item.color
+			],
+		  title: {
+		    text: title,
+			x : "center",
+			textStyle : {
+				color: '#fff'
+			}
+		  },
+		  tooltip: {
+		    trigger: 'axis'
+		  },
+		  legend: {
+			show: true,
+			top: "bottom",
+			textStyle : {
+				color: '#fff'
+			}
+		  },
+			grid: {
+		      	left: 100,
+		      	right: 20
+			},
+		  xAxis: {
+		    type: 'category'
+		  },
+		  yAxis: {
+		    type: 'value',
+			axisLabel : {
+				formatter : "{value} " + unit,
+				color : "#fff"
+			}
+		  },
+		  series: item.list
+	};	
 	
 	var chart = ChartM.getChart(id);
 	

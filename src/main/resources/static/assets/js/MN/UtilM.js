@@ -314,6 +314,133 @@ UtilM.DOWNLOAD_EXCEL = function(header, list, filename = ""){
     }
 };
 
+UtilM.DOWNLOAD_PAPER_CSV = function(header, list, filename = ""){
+	
+	setTimeout(function(){
+		 
+		var csv = header.join(",") + "\r\n";
+		var name = filename.replace(",", "/");		
+		
+		$.each(list, function(i, item){
+			var weight = item.weight;
+			var value = item.result;
+						
+			csv += name + "," + weight + "," + value + "\r\n";
+		});
+				
+    	filename = filename ? filename + '.csv' : 'export.csv';
+
+	    var blob = new Blob(["\ufeff" + csv], { type: 'text/csv;charset=utf-8;' });
+	    if (navigator.msSaveBlob) { // IE 10+
+	        navigator.msSaveBlob(blob, filename);
+	    } else {
+	        var link = document.createElement("a");
+	        if (link.download !== undefined) { // feature detection
+	            // Browsers that support HTML5 download attribute
+	            var url = URL.createObjectURL(blob);
+	            link.setAttribute("href", url);
+	            link.setAttribute("download", filename);
+	            link.style.visibility = 'hidden';
+	            document.body.appendChild(link);
+	            link.click();
+	            document.body.removeChild(link);
+	        }
+	    }
+	    
+	}, 200);
+	
+};
+
+UtilM.DOWNLOAD_PAPER_EXCEL = function(header, list, filename = ""){
+
+    var downloadLink;
+    var tableHTML = UtilM.ConvertTable_PAPER(header, list, filename);
+                
+    // Specify file name
+    filename = filename?filename+'.xls':'excel_data.xls';
+    
+    // Create download link element
+    downloadLink = document.createElement("a");
+    
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob){
+        var blob = new Blob(['\ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob( blob, filename);
+    }else{
+		var excelFile = "<html xml:lang='ko' xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:x='urn:schemas-microsoft-com:office:excel' xmlns='http://www.w3.org/TR/REC-html40'>";
+        
+		excelFile += "<head>";
+        excelFile += '<meta http-equiv="Content-type" content="text/html;charset=utf-8" />';
+        excelFile += "<!--[if gte mso 9]>";
+        excelFile += "<xml>";
+        excelFile += "<x:ExcelWorkbook>";
+        excelFile += "<x:ExcelWorksheets>";
+        excelFile += "<x:ExcelWorksheet>";
+        excelFile += "<x:Name>";
+        excelFile += "{worksheet}";
+        excelFile += "</x:Name>";
+        excelFile += "<x:WorksheetOptions>";
+        excelFile += "<x:DisplayGridlines/>";
+        excelFile += "</x:WorksheetOptions>";
+        excelFile += "</x:ExcelWorksheet>";
+        excelFile += "</x:ExcelWorksheets>";
+        excelFile += "</x:ExcelWorkbook>";
+        excelFile += "</xml>";
+        excelFile += "<![endif]-->";
+        excelFile += "</head>";
+        excelFile += "<body>";
+        excelFile += tableHTML.replace(/"/g, '\'');
+        excelFile += "</body>";
+        excelFile += "</html>";
+
+        var uri = "data:application/vnd.ms-excel;base64,";
+        var ctx = { worksheet: filename, table: tableHTML };
+
+        // Create a link to the file
+        downloadLink.href = uri + UtilM.base64(UtilM.format(excelFile, ctx));
+    
+        // Setting the file name
+        downloadLink.download = filename;
+        
+        //triggering the function
+        downloadLink.click();
+    }
+};
+
+UtilM.ConvertTable_PAPER = function(header, list, name){
+	var result = "";
+	var div = $("<div/>");
+	var table = $("<table/>");
+	var tb_header = $("<thead/>");
+	var tb_body = $("<tbody/>");
+	
+	var hr_header = $("<tr/>");
+	
+	var lst_header = header;
+	
+	$.each(lst_header, function(i, item){
+		hr_header.append(UtilM.CREATE_HEADER(item));
+	});
+	
+	tb_header.append(hr_header);
+	
+	$.each(list, function(i, item){
+		tb_body.append(UtilM.CREATE_BODY_ITEM_PAPER(item, name));
+	});
+	
+	table.append(tb_header);
+	table.append(tb_body);
+	
+	div.append(table);
+	
+	result = div.html();
+
+    return result;
+};
+
 UtilM.ConvertTable = function(header, list){
 	var result = "";
 	var div = $("<div/>");
@@ -362,6 +489,21 @@ UtilM.CREATE_BODY_ITEM = function(item){
 	tr.append(td_min);
 	tr.append(td_max);
 	tr.append(td_avg);
+	
+	return tr;
+};
+
+UtilM.CREATE_BODY_ITEM_PAPER = function(item, name){
+	name = name.replace(",", "/");	
+	
+	var tr = $("<tr/>");
+	var td_name = $("<td>" + name + "</td>");
+	var td_weight = $("<td>" + item.weight + "</td>");
+	var td_value = $("<td>" + item.result + "</td>");
+	
+	tr.append(td_name);
+	tr.append(td_weight);
+	tr.append(td_value);
 	
 	return tr;
 };

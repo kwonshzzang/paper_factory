@@ -40,5 +40,9 @@ public interface ProcessMapper {
 	int updateByPrimaryKey(Process row);
 	
 
-	List<Map<String, String>> selectChangeTime();
+	List<Map<String, String>> selectChangeTime();	
+
+	List<Map<String, String>> selectHistoryPaperProductTotal(@Param("typeId") String typeId, @Param("tagFrom") String tagFrom, @Param("tagTo") String tagTo);
+	List<Map<String, String>> selectHistoryPaperProductTime(@Param("typeId") String typeId, @Param("tagFrom") String tagFrom, @Param("tagTo") String tagTo);
+	List<Map<String, String>> selectHistoryPaperProductChangeTime(@Param("typeId") String typeId, @Param("tagFrom") String tagFrom, @Param("tagTo") String tagTo);
 }

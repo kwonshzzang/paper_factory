@@ -55,7 +55,7 @@ $(document).ready(function(){
 
 							<ul class="nav nav-group-sub" data-submenu-title="공정">
 								<li class="nav-item"><a href="#" class="nav-quick-menu nav-link " data-type="system">설비 & 태그</a></li>
-								<li class="nav-item"><a href="#" class="nav-quick-menu nav-link" data-type="papertype">지종</a></li>
+								<li class="nav-item"><a href="#" class="nav-quick-menu nav-link" data-type="paper">지종</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -479,7 +479,7 @@ $(document).ready(function(){
 						</div>
 					</div>
 				</div>
-				<div class="inner-page" data-type="papertype">
+				<div class="inner-page" data-type="paper">
 					<div class="breadcrumb-line breadcrumb-line-light bg-dark breadcrumb-line-component header-elements-md-inline mb-2">
 						<div class="d-flex">
 							<div class="breadcrumb">
@@ -491,23 +491,24 @@ $(document).ready(function(){
 					</div>
 					<div class="card">
 						<div class="card-body d-flex">
+							<div class="d-flex align-items-center search-field ml-2">
+								<h6 class="">라인</h6>
+								<select class="form-control" id="sel_history_paper_line" disabled="disabled">
+									<option>PM1</option>
+									<option>PM2</option>
+									<option selected="selected">PM3</option>
+								</select>
+							</div>
 							<div class="d-flex align-items-center search-field">
-								<h6 class="">지종</h6>
-								<select class="form-control" id="sel_history_paper_type">
-									<option>백상지</option>
-									<option>BP</option>
-									<option>ART</option>
+								<h6 class="">공정</h6>
+								<select class="form-control" id="sel_history_paper_process" disabled="disabled">
+									<option>조정</option>
+									<option selected="selected">초지</option>
+									<option>가공</option>
+									<option>완정</option>
 								</select>
 							</div>
-							<div class="d-flex align-items-center search-field ml-2">
-								<h6 class="">평량</h6>
-								<select class="form-control" id="sel_history_paper_water">
-									<option>저</option>
-									<option>중</option>
-									<option>대</option>
-								</select>
-							</div>
-							<div class="d-flex align-items-center search-field ml-2">
+							<div class="d-flex align-items-center search-field ml-2" style="display: none !important;">
 								<h6 class="">주기</h6>
 								<select class="form-control txt-period" id="sel_history_paper_period_type">
 									<option value="day">일</option>
@@ -531,28 +532,27 @@ $(document).ready(function(){
 						<div class="col-6">
 							<div class="card bg-dark">
 								<div class="card-body">
-									<div class="text-right mb-3">
+									<div class="d-flex mb-3">
 										<div class="btn-group btn-group-toggle" data-toggle="buttons">
-											<label class="btn active">
-												<input type="radio" name="opt_history_paper_type1" class="opt_history_paper_type1" data-step="1" autocomplete="off" checked>
+											<label class="btn opt_history_paper_type1 active" data-step="time">
+												<input type="radio" name="opt_history_paper_type1" autocomplete="off" checked>
 												생산시간
 											</label>
 		
-											<label class="btn">
-												<input type="radio" name="opt_history_paper_type1" class="opt_history_paper_type1" data-step="2" autocomplete="off">
+											<label class="btn opt_history_paper_type1" data-step="total">
+												<input type="radio" name="opt_history_paper_type1" autocomplete="off">
 												생산량
 											</label>
 		
-											<label class="btn">
-												<input type="radio" name="opt_history_paper_type1" class="opt_history_paper_type1" data-step="3" autocomplete="off">
-												지종교체
-											</label>
-		
-											<label class="btn">
-												<input type="radio" name="opt_history_paper_type1" class="opt_history_paper_type1" data-step="4" autocomplete="off">
-												불량정보
+											<label class="btn opt_history_paper_type1" data-step="change">
+												<input type="radio" name="opt_history_paper_type1" autocomplete="off">
+												지종교체시간
 											</label>
 										</div>
+										<div class="d-flex justify-content-end ml-auto">
+					    					<button type="button" class="btn btn-outline-primary btn-history-download-excel" data-category="paper" data-type="type1"><i class="icon-file-excel mr-2"></i> Excel</button>
+					    					<button type="button" class="btn btn-outline-success btn-history-download-csv ml-2" data-category="paper" data-type="type1"><i class="icon-file-text2 mr-2"></i> CSV</button>
+					    				</div>
 									</div>
 									<div class="history-chart chart" id="chart_history_paper_type1"></div>
 								</div>
@@ -561,28 +561,27 @@ $(document).ready(function(){
 						<div class="col-6">
 							<div class="card bg-dark">
 								<div class="card-body">
-									<div class="text-right mb-3">
+									<div class="d-flex mb-3">
 										<div class="btn-group btn-group-toggle" data-toggle="buttons">
-											<label class="btn active">
-												<input type="radio" name="opt_history_paper_type2" class="opt_history_paper_type2" data-step="1" autocomplete="off" checked>
+											<label class="btn opt_history_paper_type2 active" data-step="time">
+												<input type="radio" name="opt_history_paper_type2" autocomplete="off" checked>
 												생산시간
 											</label>
 		
-											<label class="btn">
-												<input type="radio" name="opt_history_paper_type2" class="opt_history_paper_type2" data-step="2" autocomplete="off">
+											<label class="btn opt_history_paper_type2" data-step="total">
+												<input type="radio" name="opt_history_paper_type2" autocomplete="off">
 												생산량
 											</label>
 		
-											<label class="btn">
-												<input type="radio" name="opt_history_paper_type2" class="opt_history_paper_type2" data-step="3" autocomplete="off">
-												지종교체
-											</label>
-		
-											<label class="btn">
-												<input type="radio" name="opt_history_paper_type2" class="opt_history_paper_type2" data-step="4" autocomplete="off">
-												불량정보
+											<label class="btn opt_history_paper_type2" data-step="change">
+												<input type="radio" name="opt_history_paper_type2" autocomplete="off">
+												지종교체시간
 											</label>
 										</div>
+										<div class="d-flex justify-content-end ml-auto">
+					    					<button type="button" class="btn btn-outline-primary btn-history-download-excel" data-category="paper" data-type="type2"><i class="icon-file-excel mr-2"></i> Excel</button>
+					    					<button type="button" class="btn btn-outline-success btn-history-download-csv ml-2" data-category="paper" data-type="type2"><i class="icon-file-text2 mr-2"></i> CSV</button>
+					    				</div>
 									</div>
 									<div class="history-chart chart" id="chart_history_paper_type2"></div>
 								</div>
@@ -591,28 +590,27 @@ $(document).ready(function(){
 						<div class="col-6">
 							<div class="card bg-dark">
 								<div class="card-body">
-									<div class="text-right mb-3">
+									<div class="d-flex mb-3">
 										<div class="btn-group btn-group-toggle" data-toggle="buttons">
-											<label class="btn active">
-												<input type="radio" name="opt_history_paper_type3" class="opt_history_paper_type3" data-step="1" autocomplete="off" checked>
+											<label class="btn opt_history_paper_type3 active" data-step="time">
+												<input type="radio" name="opt_history_paper_type3" autocomplete="off" checked>
 												생산시간
 											</label>
 		
-											<label class="btn">
-												<input type="radio" name="opt_history_paper_type3" class="opt_history_paper_type3" data-step="2" autocomplete="off">
+											<label class="btn opt_history_paper_type3" data-step="total">
+												<input type="radio" name="opt_history_paper_type3" autocomplete="off">
 												생산량
 											</label>
 		
-											<label class="btn">
-												<input type="radio" name="opt_history_paper_type3" class="opt_history_paper_type3" data-step="3" autocomplete="off">
-												지종교체
-											</label>
-		
-											<label class="btn">
-												<input type="radio" name="opt_history_paper_type3" class="opt_history_paper_type3" data-step="4" autocomplete="off">
-												불량정보
+											<label class="btn opt_history_paper_type3" data-step="change">
+												<input type="radio" name="opt_history_paper_type3" autocomplete="off">
+												지종교체시간
 											</label>
 										</div>
+										<div class="d-flex justify-content-end ml-auto">
+					    					<button type="button" class="btn btn-outline-primary btn-history-download-excel" data-category="paper" data-type="type3"><i class="icon-file-excel mr-2"></i> Excel</button>
+					    					<button type="button" class="btn btn-outline-success btn-history-download-csv ml-2" data-category="paper" data-type="type3"><i class="icon-file-text2 mr-2"></i> CSV</button>
+					    				</div>
 									</div>
 									<div class="history-chart chart" id="chart_history_paper_type3"></div>
 								</div>
@@ -621,28 +619,27 @@ $(document).ready(function(){
 						<div class="col-6">
 							<div class="card bg-dark">
 								<div class="card-body">
-									<div class="text-right mb-3">
+									<div class="d-flex mb-3">
 										<div class="btn-group btn-group-toggle" data-toggle="buttons">
-											<label class="btn active">
-												<input type="radio" name="opt_history_paper_type4" class="opt_history_paper_type4" data-step="1" autocomplete="off" checked>
+											<label class="btn opt_history_paper_type4 active" data-step="time">
+												<input type="radio" name="opt_history_paper_type4" autocomplete="off" checked>
 												생산시간
 											</label>
 		
-											<label class="btn">
-												<input type="radio" name="opt_history_paper_type4" class="opt_history_paper_type4" data-step="2" autocomplete="off">
+											<label class="btn opt_history_paper_type4" data-step="total">
+												<input type="radio" name="opt_history_paper_type4" autocomplete="off">
 												생산량
 											</label>
 		
-											<label class="btn">
-												<input type="radio" name="opt_history_paper_type4" class="opt_history_paper_type4" data-step="3" autocomplete="off">
-												지종교체
-											</label>
-		
-											<label class="btn">
-												<input type="radio" name="opt_history_paper_type4" class="opt_history_paper_type4" data-step="4" autocomplete="off">
-												불량정보
+											<label class="btn opt_history_paper_type4" data-step="change">
+												<input type="radio" name="opt_history_paper_type4" autocomplete="off">
+												지종교체시간
 											</label>
 										</div>
+										<div class="d-flex justify-content-end ml-auto">
+					    					<button type="button" class="btn btn-outline-primary btn-history-download-excel" data-category="paper" data-type="type4"><i class="icon-file-excel mr-2"></i> Excel</button>
+					    					<button type="button" class="btn btn-outline-success btn-history-download-csv ml-2" data-category="paper" data-type="type4"><i class="icon-file-text2 mr-2"></i> CSV</button>
+					    				</div>
 									</div>
 									<div class="history-chart chart" id="chart_history_paper_type4"></div>
 								</div>

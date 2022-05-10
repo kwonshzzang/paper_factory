@@ -3,6 +3,7 @@ package kr.re.etri.paper.service;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -183,5 +184,20 @@ public class EquipmentService {
 		data.setValue(new BigDecimal(val));
 		
 		return data;
+	}
+	
+
+	/* ----------------------------------------------------
+	 *
+	 * 데이터 검색
+	 *
+	 * -------------------------------------------------- */
+	public List<FactoryEquipment> getList_Equipment() {
+		return mapper_equipment.selectAll();
+	}
+	
+
+	public List<Map<String, String>> getData_Now_Equipment_Worker() {
+		return mapper_equipment.selectNowEquipmentWorker();
 	}
 }

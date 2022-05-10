@@ -42,4 +42,8 @@ public interface ProductPlanMapper {
 	List<Map<String, String>> selectMonthPlanList();
 	List<Map<String, String>> selectTodayNowTotalPerProductType(String searchDateType);
 	List<Map<String, String>> selectMonthTotalPerProductType(String searchDateType);
+	
+
+	List<Map<String, String>> selectToday_Now_Product_Weight();
+	List<Map<String, String>> selectToday_Total_Product_Weight();
 }

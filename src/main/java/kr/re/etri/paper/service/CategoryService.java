@@ -127,6 +127,18 @@ public class CategoryService {
 		return mapper_process.selectChangeTime();
 	}
 	
+	public List<Map<String, String>> getList_Paper_Product_Total(String type, String from, String to){
+		return mapper_process.selectHistoryPaperProductTotal(type, from, to);
+	}
+	
+	public List<Map<String, String>> getList_Paper_Product_Time(String type, String from, String to){
+		return mapper_process.selectHistoryPaperProductTime(type, from, to);
+	}
+	
+	public List<Map<String, String>> getList_Paper_Product_ChangeTime(String type, String from, String to){
+		return mapper_process.selectHistoryPaperProductChangeTime(type, from, to);
+	}
+	
 	
 	/* ----------------------------------------------------
 	 *

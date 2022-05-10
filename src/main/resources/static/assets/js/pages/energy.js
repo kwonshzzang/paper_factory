@@ -105,6 +105,8 @@ ENERGY.MODAL.SHOW_PRODUCT_SCHEDULE = function(){
 
 ENERGY.MODAL.SHOW_SYSTEM_INFO = function(){
 	$("#modal_energy_system_info").modal("show");
+	
+	ENERGY.REQ.LOAD_EQIUPMENT_NOW();
 };
 
 
@@ -121,6 +123,23 @@ ENERGY.MODAL.SHOW_PROCESS_TIME = function(){
  * REST API REQUEST FUNCTION
  *
  *******************************/
+ENERGY.REQ.LOAD_EQIUPMENT_NOW = function(){
+	
+	RM.GET({
+		path : "/energy/equipment/now"
+	}, function(json){		
+		
+		console.log("ENERGY.REQ.LOAD_EQIUPMENT_NOW", json);
+		
+		if(json.check){
+			var list = json.result.worker;
+			
+			ENERGY.UI.SET_EQUIPMENT_NOW(list);			
+		}
+		
+	});
+};
+
 ENERGY.REQ.LOAD_PLAN_NOW = function(){
 	
 	RM.GET({
@@ -149,10 +168,11 @@ ENERGY.REQ.LOAD_PLAN_TOTAL = function(){
 		console.log("ENERGY.REQ.LOAD_PLAN_TOTAL", json);
 		
 		if(json.check){
-			var today = json.result.today;
-			var todaytotal = json.result.todaytotal;
+			var now = json.result.now;
+			var weight = json.result.weight;
+			var total = json.result.todaytotal;
 			
-			ENERGY.UI.SET_PLAN_TOTAL(today, todaytotal);
+			ENERGY.UI.SET_PLAN_TOTAL(now, weight, total);
 		}
 		
 	});
@@ -380,6 +400,37 @@ ENERGY.REQ.LOAD_CHART_PROCESS_CHANGE_TIME = function(){
  * UI CREATE FUNCTION
  *
  *******************************/
+
+ENERGY.UI.SET_EQUIPMENT_NOW = function(list){
+	
+	/*
+	$("#txt_now_equipment").text(item.equipment_name);
+	$("#txt_now_worker").text(item.worker_name);
+	*/
+	
+	var body = $("#tbl_energy_equipment_body");
+	body.empty();
+		
+	var tr_title = $("<tr/>");
+	tr_title.append("<td>PM3</td>");
+	var tr_worker = $("<tr/>");
+	tr_worker.append("<td>작업자 정보</td>");
+	
+	$.each(list, function(i, item){
+		var td_equipment = $("<td>" + item.equipment_name + "</td>");
+		var td_worker = $("<td>" + item.worker_name + "</td>");
+
+		tr_title.append(td_equipment);
+		tr_worker.append(td_worker);
+	});
+	
+	body.append(tr_title);
+	body.append(tr_worker);
+	
+	
+	$.each()
+};
+	
 ENERGY.UI.SET_PLAN_NOW = function(item){
 	
 	$("#txt_energy_product_type").text(item.product_type_name);
@@ -421,13 +472,13 @@ ENERGY.UI.SET_PLAN_NOW = function(item){
 };
 
 
-ENERGY.UI.SET_PLAN_TOTAL = function(today, total){
+ENERGY.UI.SET_PLAN_TOTAL = function(now, weight, total){
 	var output_today = 0;
 	var output_total = 0;
 	var output_percent = 0;
 	var pie_list = [];
 	
-	$.each(today, function(i, item){
+	$.each(now, function(i, item){
 		var count = item.total;
 		
 		if(isNaN(count)){
@@ -435,6 +486,11 @@ ENERGY.UI.SET_PLAN_TOTAL = function(today, total){
 		}
 		
 		output_today += (count * 1);
+		
+		pie_list.push({
+			name : item.weight + " ★ " + item.product_type_name,
+			value : item.total
+		});
 	});
 	
 	$.each(total, function(i, item){
@@ -446,11 +502,17 @@ ENERGY.UI.SET_PLAN_TOTAL = function(today, total){
 		
 		output_total += (count * 1);
 		
+	});
+	
+	/*
+	$.each(weight, function(i, item){
+		
 		pie_list.push({
-			name : item.product_type_name,
-			value : count
+			name : item.product_type_name + " - " + item.weight,
+			value : item.total
 		});
 	});
+	*/
 	
 	output_percent = Math.round((output_today / output_total) * 100);
 	
@@ -674,7 +736,7 @@ ENERGY.CHART.CREATE_GOAL_PIE = function(id, list){
 		  },
 		  series: [
 		    {
-		      name: 'Access From',
+		      name: '생산 지종',
 		      type: 'pie',
 		      radius: '70%',
 			  center : ["50%", "40%"],
@@ -887,6 +949,10 @@ ENERGY.CHART.CREATE_TOTAL_BAR = function(id, item){
 				color: '#fff'
 			}
 		  },
+			grid: {
+		      	left: 100,
+		      	right: 20
+			},
 		  xAxis: {
 		    type: 'category',
 			data : item.category

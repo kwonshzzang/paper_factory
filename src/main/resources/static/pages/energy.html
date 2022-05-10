@@ -90,6 +90,12 @@ $(document).ready(function(){
 							</button>
 						</div>
 						<div class="header-elements">
+							<div class="d-none">
+								<span>진행중인 공정의 설비 : </span>
+								<h6 class="ml-1 text-orange mb-0" id="txt_now_equipment">-</h6>
+								<span class="ml-3">작업자 : </span>
+								<h6 class="ml-1 text-orange mb-0" id="txt_now_worker">-</h6>
+							</div>
 							<button type="button" class="btn bg-blue" id="btn_show_system_info">설비/작업자 정보</button>
 						</div>
 					</div>	
@@ -397,7 +403,7 @@ $(document).ready(function(){
 
 	<!-- Modal System Info -->
 	<div id="modal_energy_system_info" class="modal fade" data-backdrop="false" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-scrollable modal-xl">
+		<div class="modal-dialog modal-dialog-scrollable modal-lg">
 			<div class="modal-content border-white">
 				<div class="modal-header">
 					<h5 class="modal-title">설비/작업자 정보</h5>
@@ -405,40 +411,8 @@ $(document).ready(function(){
 				</div>
 
 				<div class="modal-body">									
-					<table class="table" id="tbl_dashboard_alarm">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>발생 장비 ID</th>
-								<th>경고 내용</th>
-								<th>발생 일자</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>320PIC7509</td>
-								<td>과열</td>
-								<td>2022-01-01 11:11:00</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>320PIC7511</td>
-								<td>압력 경고</td>
-								<td>2022-01-01 11:11:00</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>320PIC7514</td>
-								<td>멈춤</td>
-								<td>2022-01-01 11:11:00</td>
-							</tr>
-							<tr>
-								<td>4</td>
-								<td>320PIC7513</td>
-								<td>신호 수신 불량</td>
-								<td>2022-01-01 11:11:00k</td>
-							</tr>
+					<table class="table" id="tbl_energy_equipment">
+						<tbody id="tbl_energy_equipment_body">							
 						</tbody>
 					</table>
 				</div>

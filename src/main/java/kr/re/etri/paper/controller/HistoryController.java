@@ -71,6 +71,17 @@ public class HistoryController {
 		
 		return result;
 	}
+	
+	@GetMapping("/paper/{category}/{type}/{from}/{to}")
+	public Map<String, Object> getListPaper(@PathVariable String category, @PathVariable String type, @PathVariable String from, @PathVariable String to){
+
+		Map<String, Object> result = new HashMap<>();
+		result.put("check", true);
+		
+		result.put("result", SERVICE.getHistory_Paper(category, type, from, to));
+		
+		return result;
+	}
 
 	
 	@GetMapping("/tags")

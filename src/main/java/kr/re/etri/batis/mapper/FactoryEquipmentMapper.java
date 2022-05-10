@@ -1,6 +1,8 @@
 package kr.re.etri.batis.mapper;
 
 import java.util.List;
+import java.util.Map;
+
 import kr.re.etri.batis.domain.FactoryEquipment;
 
 public interface FactoryEquipmentMapper {
@@ -34,4 +36,6 @@ public interface FactoryEquipmentMapper {
 	 * @mbg.generated  Wed Apr 20 10:51:28 KST 2022
 	 */
 	int updateByPrimaryKey(FactoryEquipment row);
+	
+	List<Map<String, String>> selectNowEquipmentWorker();
 }

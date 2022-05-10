@@ -61,7 +61,7 @@ MainM.LOAD_PAGE = function(type){
 		break;
 		case "settings": 
 		area = $("#page_settings");
-		page = MainM.pageurl.settings + "?v=" + d.getTime();
+		page = MainM.pageurl.setting + "?v=" + d.getTime();
 		break;
 	}	
 	

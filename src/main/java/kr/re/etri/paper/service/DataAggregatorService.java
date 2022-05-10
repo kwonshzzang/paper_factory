@@ -33,6 +33,9 @@ public class DataAggregatorService {
 	
 	@Autowired
 	CategoryService SERVICE_CATEGORY;
+
+	@Autowired
+	EquipmentService SERVICE_EQUIPMENT;
 		
 
 
@@ -228,8 +231,8 @@ public class DataAggregatorService {
 	public Map<String, Object> getPlanTotal(){
 		Map<String, Object> result = new HashMap<>();
 		result.put("todaytotal", SERVICE_PLAN.getListTotal_Today_PerProductType());
-		result.put("today", SERVICE_PLAN.getListTotal_Today_Now_PerProductType());
-		result.put("month", SERVICE_PLAN.getListTotal_Month_PerProductType());
+		result.put("now", SERVICE_PLAN.getListTotal_Today_Now_Product_Weight());
+		result.put("weight", SERVICE_PLAN.getListTotal_Today_Total_Product_Weight());
 		
 		return result;
 	}
@@ -326,6 +329,16 @@ public class DataAggregatorService {
 		
 		result.put("steam", steam);
 		result.put("elec", elec);
+		
+		return result;
+	}
+	
+
+	public Map<String, Object> getNow_Equipment_Worker(){
+		Map<String, Object> result = new HashMap<>();
+		List<Map<String, String>> worker = SERVICE_EQUIPMENT.getData_Now_Equipment_Worker();
+
+		result.put("worker", worker);
 		
 		return result;
 	}
@@ -590,6 +603,28 @@ public class DataAggregatorService {
 		}
 		
 		result.put("pv", pv);
+		
+		return result;
+	}
+	
+	public Map<String, Object> getHistory_Paper(String category, String type, String from, String to){
+
+		Map<String, Object> result = new HashMap<>();
+		List<Map<String, String>> list = new ArrayList<Map<String,String>>();
+		
+		switch(type) {
+		case "time":
+			list = SERVICE_CATEGORY.getList_Paper_Product_Time(category, from, to);
+			break;
+		case "total":
+			list = SERVICE_CATEGORY.getList_Paper_Product_Total(category, from, to);
+			break;
+		case "change":
+			list = SERVICE_CATEGORY.getList_Paper_Product_ChangeTime(category, from, to);
+			break;
+		}
+		
+		result.put("list", list);
 		
 		return result;
 	}

@@ -102,4 +102,45 @@
 		GROUP BY C.product_type_id
   </select>
   
+  
+  <select id="selectHistoryPaperProductTotal" parameterType="map" resultType="HashMap">
+    SELECT B.weight, sum(output.value) as result FROM paper_dt.process A, paper_dt.product B, paper_dt.product_type C,
+	(
+	   SELECT measure_date, value
+	   FROM paper_dt.raw_tag_data
+	   WHERE tag_id = 'PM3_OUTPUT_COUNT'
+	   AND measure_date BETWEEN #{tagFrom,jdbcType=VARCHAR} AND #{tagTo,jdbcType=VARCHAR}
+	   AND value > 0
+	) AS output
+	WHERE output.measure_date BETWEEN process_start_date AND process_end_date
+	AND A.product_id = B.product_id
+	AND B.product_type_id = C.product_type_id
+	AND C.product_type_id = #{typeId,jdbcType=VARCHAR}
+	GROUP BY B.weight
+
+  </select>
+  
+  <select id="selectHistoryPaperProductTime" parameterType="map" resultType="HashMap">
+    SELECT B.weight, sum(TIMESTAMPDIFF(minute, A.process_start_date, process_end_date)/60) as result
+		FROM paper_dt.process A, paper_dt.product B
+		WHERE A.product_id = B.product_id
+		AND A.process_type = 'P'
+		AND B.product_type_id = #{typeId,jdbcType=VARCHAR}
+		AND A.process_start_date BETWEEN #{tagFrom,jdbcType=VARCHAR} AND #{tagTo,jdbcType=VARCHAR}
+		AND A.process_end_date BETWEEN #{tagFrom,jdbcType=VARCHAR} AND #{tagTo,jdbcType=VARCHAR}
+		GROUP BY B.weight
+
+  </select>
+  
+  <select id="selectHistoryPaperProductChangeTime" parameterType="map" resultType="HashMap">
+    SELECT B.weight, sum(TIMESTAMPDIFF(minute, A.process_start_date, process_end_date)/60) as result
+		FROM paper_dt.process A, paper_dt.product B
+		WHERE A.product_id = B.product_id
+		AND A.process_type = 'W'
+		AND B.product_type_id = #{typeId,jdbcType=VARCHAR}
+		AND A.process_start_date BETWEEN #{tagFrom,jdbcType=VARCHAR} AND #{tagTo,jdbcType=VARCHAR}
+		AND A.process_end_date BETWEEN #{tagFrom,jdbcType=VARCHAR} AND #{tagTo,jdbcType=VARCHAR}
+		GROUP BY B.weight
+
+  </select>
 </mapper>

@@ -80,6 +80,15 @@ public class PlanService {
 	public List<Map<String, String>> getListTotal_Today_PerProductType(){
 		return mapper_product_plan.selectMonthTotalPerProductType("%Y%m%d");
 	}
+	
+
+	public List<Map<String, String>> getListTotal_Today_Now_Product_Weight(){
+		return mapper_product_plan.selectToday_Now_Product_Weight();
+	}
+
+	public List<Map<String, String>> getListTotal_Today_Total_Product_Weight(){
+		return mapper_product_plan.selectToday_Total_Product_Weight();
+	}
 
 	/* ----------------------------------------------------
 	 *
